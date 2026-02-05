@@ -2,26 +2,33 @@ import { useState } from "react";
 import movies from "./data/movies.json";
 
 export default function App() {
+  // Random first movie
   const [currentMovie, setCurrentMovie] = useState(
-  movies[Math.floor(Math.random() * movies.length)]
-);
-
+    movies[Math.floor(Math.random() * movies.length)]
+  );
 
   const [guess, setGuess] = useState("");
   const [result, setResult] = useState("");
 
-  // Autocomplete suggestions
+  // Autocomplete
   const [suggestions, setSuggestions] = useState([]);
 
-  // ✅ NEW: Hint system state
+  // Hint system
   const [hintIndex, setHintIndex] = useState(0);
 
-  // Handle typing + suggestions
+  // ✅ Reveal state
+  const [revealed, setRevealed] = useState(false);
+
+  // ✅ Score + streak
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+
+  // Typing handler
   function handleInputChange(e) {
     const value = e.target.value;
     setGuess(value);
 
-    if (value.length === 0) {
+    if (!value) {
       setSuggestions([]);
       return;
     }
@@ -35,64 +42,96 @@ export default function App() {
     setSuggestions(filtered);
   }
 
-  // Click suggestion
   function handleSuggestionClick(movieName) {
     setGuess(movieName);
     setSuggestions([]);
   }
 
-  // Submit answer
+  // ✅ Submit answer
   function handleSubmit() {
     if (
       guess.trim().toLowerCase() ===
       currentMovie.answer.trim().toLowerCase()
     ) {
       setResult("✅ Correct!");
+
+      // Add points + streak
+      setScore(score + 10);
+      setStreak(streak + 1);
     } else {
-      setResult("❌ Wrong guess. Try again.");
+      setResult("❌ Wrong guess!");
+
+      // Reset streak
+      setStreak(0);
     }
   }
 
-  // ✅ Reveal next hint
+  // Hint button
   function handleHint() {
-    if (hintIndex < currentMovie.hints.length) {
+    if (hintIndex < 3) {
       setHintIndex(hintIndex + 1);
     }
   }
 
+  // ✅ Reveal Answer Button
+  function handleReveal() {
+    setRevealed(true);
+    setResult("😅 Answer Revealed!");
+
+    // Reveal breaks streak
+    setStreak(0);
+  }
+
   // Next movie
   function handleNext() {
-  let randomIndex;
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * movies.length);
+    } while (movies[randomIndex].id === currentMovie.id);
 
-  do {
-    randomIndex = Math.floor(Math.random() * movies.length);
-  } while (movies[randomIndex].id === currentMovie.id);
+    setCurrentMovie(movies[randomIndex]);
 
-  setCurrentMovie(movies[randomIndex]);
+    setGuess("");
+    setResult("");
+    setSuggestions([]);
 
-  setGuess("");
-  setResult("");
-  setSuggestions([]);
-  setHintIndex(0);
-}
+    setHintIndex(0);
+    setRevealed(false);
+  }
 
+  // ✅ Share Result Text
+  function handleShare() {
+    const shareText = `🎬 Guess The Movie!
+Result: ${result || "In progress"}
+Hints used: ${hintIndex}/3
+🔥 Streak: ${streak}
+⭐ Score: ${score}`;
+
+    navigator.clipboard.writeText(shareText);
+    alert("Copied share result to clipboard!");
+  }
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>🎬 Guess The Movie</h1>
+
+      {/* Scoreboard */}
+      <div style={styles.scoreBox}>
+        ⭐ Score: {score} | 🔥 Streak: {streak}
+      </div>
 
       {/* Summary */}
       <div style={styles.card}>
         <p style={styles.summary}>{currentMovie.summary}</p>
       </div>
 
-      {/* Input + Autocomplete */}
+      {/* Input */}
       <div style={{ position: "relative" }}>
         <input
           style={styles.input}
           value={guess}
           onChange={handleInputChange}
-          placeholder="Type your movie guess..."
+          placeholder="Type your guess..."
         />
 
         {suggestions.length > 0 && (
@@ -121,18 +160,16 @@ export default function App() {
         </button>
       </div>
 
-      {/* ✅ Hint Button */}
-      <div style={{ marginTop: "15px" }}>
-        <button
-          style={styles.hintButton}
-          onClick={handleHint}
-          disabled={hintIndex >= currentMovie.hints.length}
-        >
-          💡 Hint ({hintIndex}/{currentMovie.hints.length})
-        </button>
-      </div>
+      {/* Hint Button */}
+      <button
+        style={styles.hintButton}
+        onClick={handleHint}
+        disabled={hintIndex >= 3}
+      >
+        💡 Hint ({hintIndex}/3)
+      </button>
 
-      {/* ✅ Show revealed hints */}
+      {/* Show Hints */}
       {hintIndex > 0 && (
         <div style={styles.hintsBox}>
           <h3>Hints:</h3>
@@ -144,14 +181,28 @@ export default function App() {
         </div>
       )}
 
+      {/* ✅ Reveal Button after 3 hints */}
+      {hintIndex === 3 && result !== "✅ Correct!" && !revealed && (
+        <button style={styles.revealButton} onClick={handleReveal}>
+          👀 Reveal Movie Name
+        </button>
+      )}
+
       {/* Result */}
       {result && <h2 style={styles.result}>{result}</h2>}
 
-      {/* Reveal Answer */}
-      {result === "✅ Correct!" && (
+      {/* Show Answer if Revealed or Correct */}
+      {(revealed || result === "✅ Correct!") && (
         <p style={styles.answer}>
           Answer: <b>{currentMovie.answer}</b>
         </p>
+      )}
+
+      {/* ✅ Share Button */}
+      {result && (
+        <button style={styles.shareButton} onClick={handleShare}>
+          📲 Share Result
+        </button>
       )}
     </div>
   );
@@ -166,77 +217,8 @@ const styles = {
   title: {
     fontSize: "2.2rem",
   },
-  card: {
-    margin: "30px auto",
-    padding: "20px",
-    maxWidth: "600px",
-    border: "2px solid black",
-    borderRadius: "12px",
+  scoreBox: {
+    fontSize: "1.2rem",
+    marginBottom: "15px",
   },
-  summary: {
-    fontSize: "1.3rem",
-  },
-  input: {
-    padding: "12px",
-    width: "320px",
-    fontSize: "1rem",
-    borderRadius: "8px",
-    border: "1px solid gray",
-  },
-
-  dropdown: {
-    position: "absolute",
-    top: "50px",
-    left: "0",
-    right: "0",
-    margin: "0 auto",
-    width: "320px",
-    border: "1px solid gray",
-    borderRadius: "8px",
-    background: "white",
-    textAlign: "left",
-    zIndex: 10,
-  },
-  dropdownItem: {
-    padding: "10px",
-    cursor: "pointer",
-    borderBottom: "1px solid #eee",
-  },
-
-  buttonRow: {
-    marginTop: "20px",
-  },
-  button: {
-    padding: "10px 18px",
-    margin: "0 10px",
-    fontSize: "1rem",
-    cursor: "pointer",
-  },
-
-  // ✅ Hint button style
-  hintButton: {
-    padding: "10px 16px",
-    fontSize: "1rem",
-    cursor: "pointer",
-    borderRadius: "8px",
-  },
-
-  // ✅ Hints box
-  hintsBox: {
-    marginTop: "20px",
-    maxWidth: "400px",
-    marginInline: "auto",
-    textAlign: "left",
-    padding: "15px",
-    border: "1px solid gray",
-    borderRadius: "10px",
-  },
-
-  result: {
-    marginTop: "25px",
-  },
-  answer: {
-    fontSize: "1.1rem",
-    marginTop: "10px",
-  },
-};
+  card
