@@ -221,4 +221,71 @@ const styles = {
     fontSize: "1.2rem",
     marginBottom: "15px",
   },
-  card
+  card: {
+    margin: "20px auto",
+    padding: "20px",
+    maxWidth: "600px",
+    border: "2px solid black",
+    borderRadius: "12px",
+  },
+  summary: {
+    fontSize: "1.3rem",
+  },
+  input: {
+    padding: "12px",
+    width: "320px",
+    fontSize: "1rem",
+    borderRadius: "8px",
+    border: "1px solid gray",
+  },
+  dropdown: {
+    position: "absolute",
+    top: "50px",
+    width: "320px",
+    margin: "0 auto",
+    left: 0,
+    right: 0,
+    border: "1px solid gray",
+    background: "white",
+    zIndex: 10,
+  },
+  dropdownItem: {
+    padding: "10px",
+    cursor: "pointer",
+  },
+  buttonRow: {
+    marginTop: "15px",
+  },
+  button: {
+    padding: "10px 18px",
+    margin: "0 10px",
+    cursor: "pointer",
+  },
+  hintButton: {
+    marginTop: "15px",
+    padding: "10px 16px",
+    cursor: "pointer",
+  },
+  revealButton: {
+    marginTop: "15px",
+    padding: "10px 16px",
+    background: "black",
+    color: "white",
+    cursor: "pointer",
+  },
+  hintsBox: {
+    marginTop: "15px",
+    maxWidth: "400px",
+    marginInline: "auto",
+    textAlign: "left",
+    border: "1px solid gray",
+    padding: "10px",
+    borderRadius: "10px",
+  },
+  shareButton: {
+    marginTop: "20px",
+    padding: "10px 18px",
+    cursor: "pointer",
+    fontSize: "1rem",
+  },
+};
