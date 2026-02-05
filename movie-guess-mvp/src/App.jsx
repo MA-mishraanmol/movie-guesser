@@ -7,8 +7,8 @@ export default function App() {
     movies[Math.floor(Math.random() * movies.length)]
   );
 
+  // User guess
   const [guess, setGuess] = useState("");
-  const [result, setResult] = useState("");
 
   // Autocomplete
   const [suggestions, setSuggestions] = useState([]);
@@ -16,15 +16,20 @@ export default function App() {
   // Hint system
   const [hintIndex, setHintIndex] = useState(0);
 
-  // ✅ Reveal state
+  // Round states
+  const [roundOver, setRoundOver] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
-  // ✅ Score + streak
-  const [score, setScore] = useState(0);
-  const [streak, setStreak] = useState(0);
+  // Winning streak only
+  const [winningStreak, setWinningStreak] = useState(0);
 
-  // Typing handler
+  // Result message
+  const [result, setResult] = useState("");
+
+  // Handle typing
   function handleInputChange(e) {
+    if (roundOver) return;
+
     const value = e.target.value;
     setGuess(value);
 
@@ -42,48 +47,65 @@ export default function App() {
     setSuggestions(filtered);
   }
 
+  // Suggestion click
   function handleSuggestionClick(movieName) {
     setGuess(movieName);
     setSuggestions([]);
   }
 
-  // ✅ Submit answer
+  // Submit answer
   function handleSubmit() {
-    if (
-      guess.trim().toLowerCase() ===
-      currentMovie.answer.trim().toLowerCase()
-    ) {
-      setResult("✅ Correct!");
+    if (roundOver) return;
 
-      // Add points + streak
-      setScore(score + 10);
-      setStreak(streak + 1);
+    const correct =
+      guess.trim().toLowerCase() ===
+      currentMovie.answer.trim().toLowerCase();
+
+    if (correct) {
+      setResult("✅ Correct!");
+      setWinningStreak(winningStreak + 1);
+
+      // Round ends
+      setRoundOver(true);
+      setSuggestions([]);
     } else {
-      setResult("❌ Wrong guess!");
+      setResult("❌ Wrong! Answer revealed.");
+
+      // Wrong answer ends round + reveals answer
+      setRevealed(true);
+      setRoundOver(true);
 
       // Reset streak
-      setStreak(0);
+      setWinningStreak(0);
+
+      setSuggestions([]);
     }
   }
 
   // Hint button
   function handleHint() {
-    if (hintIndex < 3) {
-      setHintIndex(hintIndex + 1);
-    }
+    if (roundOver) return;
+    if (hintIndex < 3) setHintIndex(hintIndex + 1);
   }
 
-  // ✅ Reveal Answer Button
+  // Reveal answer manually
   function handleReveal() {
+    if (roundOver) return;
+
+    setResult("👀 Answer Revealed!");
     setRevealed(true);
-    setResult("😅 Answer Revealed!");
+    setRoundOver(true);
 
     // Reveal breaks streak
-    setStreak(0);
+    setWinningStreak(0);
+
+    setSuggestions([]);
   }
 
-  // Next movie
+  // Next movie (only allowed if round over)
   function handleNext() {
+    if (!roundOver) return;
+
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * movies.length);
@@ -91,33 +113,30 @@ export default function App() {
 
     setCurrentMovie(movies[randomIndex]);
 
+    // Reset round
     setGuess("");
-    setResult("");
     setSuggestions([]);
-
     setHintIndex(0);
+    setRoundOver(false);
     setRevealed(false);
+    setResult("");
   }
 
-  // ✅ Share Result Text
+  // Share result
   function handleShare() {
-    const shareText = `🎬 Guess The Movie!
-Result: ${result || "In progress"}
-Hints used: ${hintIndex}/3
-🔥 Streak: ${streak}
-⭐ Score: ${score}`;
+    const shareText = `🎬 Guess The Movie!\n🔥 Winning Streak: ${winningStreak}\n${result}`;
 
     navigator.clipboard.writeText(shareText);
-    alert("Copied share result to clipboard!");
+    alert("Copied streak card to clipboard!");
   }
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>🎬 Guess The Movie</h1>
 
-      {/* Scoreboard */}
-      <div style={styles.scoreBox}>
-        ⭐ Score: {score} | 🔥 Streak: {streak}
+      {/* Winning Streak Display */}
+      <div style={styles.streakBox}>
+        🔥 Winning Streak: {winningStreak}
       </div>
 
       {/* Summary */}
@@ -125,16 +144,21 @@ Hints used: ${hintIndex}/3
         <p style={styles.summary}>{currentMovie.summary}</p>
       </div>
 
-      {/* Input */}
+      {/* Input Disabled if Round Over */}
       <div style={{ position: "relative" }}>
         <input
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: roundOver ? "#eee" : "white",
+          }}
           value={guess}
           onChange={handleInputChange}
           placeholder="Type your guess..."
+          disabled={roundOver}
         />
 
-        {suggestions.length > 0 && (
+        {/* Autocomplete Dropdown */}
+        {!roundOver && suggestions.length > 0 && (
           <div style={styles.dropdown}>
             {suggestions.map((movie) => (
               <div
@@ -149,27 +173,26 @@ Hints used: ${hintIndex}/3
         )}
       </div>
 
-      {/* Buttons */}
+      {/* Submit Button Disabled if Round Over */}
       <div style={styles.buttonRow}>
-        <button style={styles.button} onClick={handleSubmit}>
+        <button
+          style={styles.button}
+          onClick={handleSubmit}
+          disabled={roundOver}
+        >
           Submit
         </button>
 
-        <button style={styles.button} onClick={handleNext}>
-          Next →
+        <button
+          style={styles.button}
+          onClick={handleHint}
+          disabled={roundOver || hintIndex >= 3}
+        >
+          💡 Hint ({hintIndex}/3)
         </button>
       </div>
 
-      {/* Hint Button */}
-      <button
-        style={styles.hintButton}
-        onClick={handleHint}
-        disabled={hintIndex >= 3}
-      >
-        💡 Hint ({hintIndex}/3)
-      </button>
-
-      {/* Show Hints */}
+      {/* Show hints */}
       {hintIndex > 0 && (
         <div style={styles.hintsBox}>
           <h3>Hints:</h3>
@@ -181,27 +204,34 @@ Hints used: ${hintIndex}/3
         </div>
       )}
 
-      {/* ✅ Reveal Button after 3 hints */}
-      {hintIndex === 3 && result !== "✅ Correct!" && !revealed && (
+      {/* Reveal option only after 3 hints */}
+      {hintIndex === 3 && !roundOver && (
         <button style={styles.revealButton} onClick={handleReveal}>
-          👀 Reveal Movie Name
+          👀 Reveal Answer
         </button>
       )}
 
       {/* Result */}
       {result && <h2 style={styles.result}>{result}</h2>}
 
-      {/* Show Answer if Revealed or Correct */}
-      {(revealed || result === "✅ Correct!") && (
+      {/* Answer shown if revealed or wrong */}
+      {revealed && (
         <p style={styles.answer}>
           Answer: <b>{currentMovie.answer}</b>
         </p>
       )}
 
-      {/* ✅ Share Button */}
-      {result && (
+      {/* Share Button available anytime round ends */}
+      {roundOver && (
         <button style={styles.shareButton} onClick={handleShare}>
-          📲 Share Result
+          📲 Share Winning Streak
+        </button>
+      )}
+
+      {/* Next Button only after round ends */}
+      {roundOver && (
+        <button style={styles.nextButton} onClick={handleNext}>
+          Next Movie →
         </button>
       )}
     </div>
@@ -217,8 +247,8 @@ const styles = {
   title: {
     fontSize: "2.2rem",
   },
-  scoreBox: {
-    fontSize: "1.2rem",
+  streakBox: {
+    fontSize: "1.3rem",
     marginBottom: "15px",
   },
   card: {
@@ -242,9 +272,9 @@ const styles = {
     position: "absolute",
     top: "50px",
     width: "320px",
-    margin: "0 auto",
     left: 0,
     right: 0,
+    margin: "0 auto",
     border: "1px solid gray",
     background: "white",
     zIndex: 10,
@@ -261,18 +291,6 @@ const styles = {
     margin: "0 10px",
     cursor: "pointer",
   },
-  hintButton: {
-    marginTop: "15px",
-    padding: "10px 16px",
-    cursor: "pointer",
-  },
-  revealButton: {
-    marginTop: "15px",
-    padding: "10px 16px",
-    background: "black",
-    color: "white",
-    cursor: "pointer",
-  },
   hintsBox: {
     marginTop: "15px",
     maxWidth: "400px",
@@ -282,8 +300,20 @@ const styles = {
     padding: "10px",
     borderRadius: "10px",
   },
+  revealButton: {
+    marginTop: "15px",
+    padding: "10px 16px",
+    background: "black",
+    color: "white",
+    cursor: "pointer",
+  },
   shareButton: {
     marginTop: "20px",
+    padding: "10px 18px",
+    cursor: "pointer",
+  },
+  nextButton: {
+    marginTop: "15px",
     padding: "10px 18px",
     cursor: "pointer",
     fontSize: "1rem",
