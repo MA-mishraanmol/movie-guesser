@@ -1,0 +1,1242 @@
+[
+  {
+    "id": 1,
+    "summary": "A rich guy takes a poor artist on a boat ride and everyone regrets it.",
+    "answer": "Titanic",
+    "difficulty": "easy",
+    "hints": ["Ship", "Romance", "Iceberg"]
+  },
+  {
+    "id": 2,
+    "summary": "A boy learns kung fu from a panda who is mostly motivated by snacks.",
+    "answer": "Kung Fu Panda",
+    "difficulty": "easy",
+    "hints": ["Panda", "Martial arts", "Animated"]
+  },
+  {
+    "id": 3,
+    "summary": "A man dreams inside dreams until even the audience needs a nap.",
+    "answer": "Inception",
+    "difficulty": "easy",
+    "hints": ["Dreams", "Heist", "Christopher Nolan"]
+  },
+  {
+    "id": 4,
+    "summary": "A kid sees dead people and honestly should’ve just moved houses.",
+    "answer": "The Sixth Sense",
+    "difficulty": "medium",
+    "hints": ["Ghosts", "Twist ending", "Psychological"]
+  },
+  {
+    "id": 5,
+    "summary": "A man adopts a green ogre lifestyle and accidentally becomes a romance icon.",
+    "answer": "Shrek",
+    "difficulty": "easy",
+    "hints": ["Ogre", "Fairy tales", "Animated"]
+  },
+  {
+    "id": 6,
+    "summary": "A wizard student spends 7 years trying not to die at school.",
+    "answer": "Harry Potter",
+    "difficulty": "easy",
+    "hints": ["Magic", "School", "Voldemort"]
+  },
+  {
+    "id": 7,
+    "summary": "A guy gets bitten by a spider and immediately chooses violence… responsibly.",
+    "answer": "Spider-Man",
+    "difficulty": "easy",
+    "hints": ["Superhero", "Webs", "Marvel"]
+  },
+  {
+    "id": 8,
+    "summary": "A billionaire dresses like a bat because therapy is too mainstream.",
+    "answer": "Batman Begins",
+    "difficulty": "medium",
+    "hints": ["Gotham", "DC", "Masked hero"]
+  },
+  {
+    "id": 9,
+    "summary": "A theme park owner thinks dinosaurs are a good business idea. Spoiler: they are not.",
+    "answer": "Jurassic Park",
+    "difficulty": "easy",
+    "hints": ["Dinosaurs", "Island", "Chaos"]
+  },
+  {
+    "id": 10,
+    "summary": "A lion becomes king, gets depressed, then fixes everything with a musical number.",
+    "answer": "The Lion King",
+    "difficulty": "easy",
+    "hints": ["Africa", "Disney", "Simba"]
+  },
+  {
+    "id": 11,
+    "summary": "A man runs really fast to deliver motivational speeches across America.",
+    "answer": "Forrest Gump",
+    "difficulty": "medium",
+    "hints": ["Running", "Life story", "Shrimp"]
+  },
+  {
+    "id": 12,
+    "summary": "A girl falls in love with a vampire who sparkles like a disco ball.",
+    "answer": "Twilight",
+    "difficulty": "easy",
+    "hints": ["Vampires", "Romance", "High school"]
+  },
+  {
+    "id": 13,
+    "summary": "A guy fights aliens using the power of friendship and extreme patriotism.",
+    "answer": "Independence Day",
+    "difficulty": "medium",
+    "hints": ["Aliens", "USA", "Big explosions"]
+  },
+  {
+    "id": 14,
+    "summary": "A clownfish dad becomes an ocean detective because his son took the wrong bus.",
+    "answer": "Finding Nemo",
+    "difficulty": "easy",
+    "hints": ["Fish", "Ocean", "Pixar"]
+  },
+  {
+    "id": 15,
+    "summary": "A man freezes himself, wakes up, and immediately starts flirting with danger.",
+    "answer": "Captain America: The First Avenger",
+    "difficulty": "medium",
+    "hints": ["Marvel", "Super soldier", "Shield"]
+  },
+  {
+    "id": 16,
+    "summary": "A man talks to himself for years because a volleyball is his best friend.",
+    "answer": "Cast Away",
+    "difficulty": "medium",
+    "hints": ["Island", "Survival", "Wilson"]
+  },
+  {
+    "id": 17,
+    "summary": "A robot cleans up Earth while humans sit in space like lazy couch potatoes.",
+    "answer": "WALL-E",
+    "difficulty": "easy",
+    "hints": ["Robot", "Space", "Pixar"]
+  },
+  {
+    "id": 18,
+    "summary": "A man kidnaps a princess but it’s okay because he’s charming.",
+    "answer": "Aladdin",
+    "difficulty": "easy",
+    "hints": ["Genie", "Disney", "Magic carpet"]
+  },
+  {
+    "id": 19,
+    "summary": "A guy loses his memory but somehow still remembers revenge.",
+    "answer": "Ghajini",
+    "difficulty": "medium",
+    "hints": ["Bollywood", "Tattoo notes", "Revenge"]
+  },
+  {
+    "id": 20,
+    "summary": "Three engineering students fix life problems by roasting the education system.",
+    "answer": "3 Idiots",
+    "difficulty": "easy",
+    "hints": ["Bollywood", "College", "Friendship"]
+  },
+  {
+    "id": 21,
+    "summary": "A teacher saves a child using empathy and art.",
+    "answer": "Taare Zameen Par",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "School",
+      "Emotional"
+    ]
+  },
+  {
+    "id": 22,
+    "summary": "A board game ruins everyone's weekend.",
+    "answer": "Jumanji",
+    "difficulty": "easy",
+    "hints": [
+      "Adventure",
+      "Game",
+      "Jungle"
+    ]
+  },
+  {
+    "id": 23,
+    "summary": "An alien visits India and questions literally everything.",
+    "answer": "PK",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Alien",
+      "Satire"
+    ]
+  },
+  {
+    "id": 24,
+    "summary": "A cop solves problems by yelling louder than criminals.",
+    "answer": "Singham",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Action",
+      "Cop"
+    ]
+  },
+  {
+    "id": 25,
+    "summary": "A man fights corruption with style and multiple identities.",
+    "answer": "Jawan",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Action",
+      "Thriller"
+    ]
+  },
+  {
+    "id": 26,
+    "summary": "Emotions run a control room and panic constantly.",
+    "answer": "Inside Out",
+    "difficulty": "easy",
+    "hints": [
+      "Pixar",
+      "Mind",
+      "Family"
+    ]
+  },
+  {
+    "id": 27,
+    "summary": "A king fights for Wakanda and very good fashion.",
+    "answer": "Black Panther",
+    "difficulty": "easy",
+    "hints": [
+      "Marvel",
+      "Wakanda",
+      "Hero"
+    ]
+  },
+  {
+    "id": 28,
+    "summary": "Spies punch terrorism with slow-motion swagger.",
+    "answer": "Pathaan",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Spy",
+      "Action"
+    ]
+  },
+  {
+    "id": 29,
+    "summary": "Toys have anxiety when humans aren't looking.",
+    "answer": "Toy Story",
+    "difficulty": "easy",
+    "hints": [
+      "Pixar",
+      "Toys",
+      "Friendship"
+    ]
+  },
+  {
+    "id": 30,
+    "summary": "Three friends take a vacation and accidentally find feelings.",
+    "answer": "Zindagi Na Milegi Dobara",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Friendship",
+      "Travel"
+    ]
+  },
+  {
+    "id": 31,
+    "summary": "A man fights boredom by becoming a vigilante.",
+    "answer": "Kick",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Action",
+      "Fun"
+    ]
+  },
+  {
+    "id": 32,
+    "summary": "A father turns wrestling into a family business plan.",
+    "answer": "Dangal",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Wrestling",
+      "Inspiration"
+    ]
+  },
+  {
+    "id": 33,
+    "summary": "A haunted house meets Bollywood-level confusion.",
+    "answer": "Bhool Bhulaiyaa",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Horror"
+    ]
+  },
+  {
+    "id": 34,
+    "summary": "Three broke men accidentally invent comedy gold.",
+    "answer": "Hera Pheri",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Cult"
+    ]
+  },
+  {
+    "id": 35,
+    "summary": "A town fears a ghost lady more than inflation.",
+    "answer": "Stree",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Horror",
+      "Comedy"
+    ]
+  },
+  {
+    "id": 36,
+    "summary": "Two men become best friends and fight the British with physics-defying energy.",
+    "answer": "RRR",
+    "difficulty": "easy",
+    "hints": [
+      "Indian",
+      "Action",
+      "Epic"
+    ]
+  },
+  {
+    "id": 37,
+    "summary": "A man boards the wrong train and chaos becomes romance.",
+    "answer": "Chennai Express",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Train"
+    ]
+  },
+  {
+    "id": 38,
+    "summary": "A girl sails away because destiny said so.",
+    "answer": "Moana",
+    "difficulty": "easy",
+    "hints": [
+      "Disney",
+      "Ocean",
+      "Adventure"
+    ]
+  },
+  {
+    "id": 39,
+    "summary": "A man escorts a lost child across borders using pure kindness.",
+    "answer": "Bajrangi Bhaijaan",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Drama",
+      "Heartwarming"
+    ]
+  },
+  {
+    "id": 40,
+    "summary": "A child defends his house using household items and pure chaos.",
+    "answer": "Home Alone",
+    "difficulty": "easy",
+    "hints": [
+      "Kid",
+      "Burglars",
+      "Christmas"
+    ]
+  },
+  {
+    "id": 41,
+    "summary": "A surgeon discovers magic because medicine wasn't enough.",
+    "answer": "Doctor Strange",
+    "difficulty": "easy",
+    "hints": [
+      "Marvel",
+      "Magic",
+      "Multiverse"
+    ]
+  },
+  {
+    "id": 42,
+    "summary": "A man has a very bad week and starts a movement.",
+    "answer": "Joker",
+    "difficulty": "easy",
+    "hints": [
+      "DC",
+      "Dark",
+      "Psychological"
+    ]
+  },
+  {
+    "id": 43,
+    "summary": "A man communicates better without words than most people do with them.",
+    "answer": "Barfi!",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Romance",
+      "Drama"
+    ]
+  },
+  {
+    "id": 44,
+    "summary": "A man discovers he has a double life and lots of enemies.",
+    "answer": "Rowdy Rathore",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Action",
+      "Masala"
+    ]
+  },
+  {
+    "id": 45,
+    "summary": "A boy raps his way out of Mumbai struggles.",
+    "answer": "Gully Boy",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Music",
+      "Drama"
+    ]
+  },
+  {
+    "id": 46,
+    "summary": "A group of adults argue, then punch aliens together.",
+    "answer": "The Avengers",
+    "difficulty": "easy",
+    "hints": [
+      "Marvel",
+      "Superheroes",
+      "Team"
+    ]
+  },
+  {
+    "id": 47,
+    "summary": "A boy visits the land of the dead for a music career.",
+    "answer": "Coco",
+    "difficulty": "easy",
+    "hints": [
+      "Pixar",
+      "Music",
+      "Family"
+    ]
+  },
+  {
+    "id": 48,
+    "summary": "High school is basically political warfare.",
+    "answer": "Mean Girls",
+    "difficulty": "easy",
+    "hints": [
+      "Comedy",
+      "Teen",
+      "Drama"
+    ]
+  },
+  {
+    "id": 49,
+    "summary": "A man wears a mask and becomes cartoon-level unhinged.",
+    "answer": "The Mask",
+    "difficulty": "easy",
+    "hints": [
+      "Comedy",
+      "Jim Carrey",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 50,
+    "summary": "A guy turns blue, joins the locals, and forgets which side he was on.",
+    "answer": "Avatar",
+    "difficulty": "easy",
+    "hints": [
+      "Blue people",
+      "Pandora",
+      "Sci-fi"
+    ]
+  },
+  {
+    "id": 51,
+    "summary": "A talkative girl adopts a sad guy and fixes his life.",
+    "answer": "Jab We Met",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Romance",
+      "Train"
+    ]
+  },
+  {
+    "id": 52,
+    "summary": "A superhero breaks the fourth wall and everyone's patience.",
+    "answer": "Deadpool",
+    "difficulty": "easy",
+    "hints": [
+      "Marvel",
+      "Edgy",
+      "Comedy"
+    ]
+  },
+  {
+    "id": 53,
+    "summary": "Three friends grow up slowly and dramatically.",
+    "answer": "Dil Chahta Hai",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Friendship",
+      "Goa"
+    ]
+  },
+  {
+    "id": 54,
+    "summary": "Zoo animals discover freedom is overrated.",
+    "answer": "Madagascar",
+    "difficulty": "easy",
+    "hints": [
+      "Animated",
+      "Comedy",
+      "Animals"
+    ]
+  },
+  {
+    "id": 55,
+    "summary": "A street guy speedruns royalty with a genie.",
+    "answer": "Aladdin (2019)",
+    "difficulty": "easy",
+    "hints": [
+      "Disney",
+      "Genie",
+      "Magic"
+    ]
+  },
+  {
+    "id": 56,
+    "summary": "A fish forgets everything but still finds the plot.",
+    "answer": "Finding Dory",
+    "difficulty": "easy",
+    "hints": [
+      "Pixar",
+      "Fish",
+      "Memory"
+    ]
+  },
+  {
+    "id": 57,
+    "summary": "A god loses his hammer and gains a sense of humor.",
+    "answer": "Thor: Ragnarok",
+    "difficulty": "easy",
+    "hints": [
+      "Marvel",
+      "Comedy",
+      "Space"
+    ]
+  },
+  {
+    "id": 58,
+    "summary": "Villagers play cricket to defeat taxes. Totally normal.",
+    "answer": "Lagaan",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Cricket",
+      "Classic"
+    ]
+  },
+  {
+    "id": 59,
+    "summary": "Multiple Spider-People prove the multiverse is stressful.",
+    "answer": "Spider-Man: Into the Spider-Verse",
+    "difficulty": "easy",
+    "hints": [
+      "Animated",
+      "Marvel",
+      "Multiverse"
+    ]
+  },
+  {
+    "id": 60,
+    "summary": "A couple argues romantically for decades.",
+    "answer": "The Notebook",
+    "difficulty": "easy",
+    "hints": [
+      "Romance",
+      "Drama",
+      "Letters"
+    ]
+  },
+  {
+    "id": 61,
+    "summary": "Two sisters solve family trauma with ice powers and catchy songs.",
+    "answer": "Frozen",
+    "difficulty": "easy",
+    "hints": [
+      "Disney",
+      "Ice",
+      "Sisters"
+    ]
+  },
+  {
+    "id": 62,
+    "summary": "A clown proves sewers are not child-friendly.",
+    "answer": "It",
+    "difficulty": "easy",
+    "hints": [
+      "Horror",
+      "Clown",
+      "Stephen King"
+    ]
+  },
+  {
+    "id": 63,
+    "summary": "Two idiots compete for love and become legends.",
+    "answer": "Andaz Apna Apna",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Cult"
+    ]
+  },
+  {
+    "id": 64,
+    "summary": "Family solves everything using cars and impossible physics.",
+    "answer": "Fast & Furious",
+    "difficulty": "easy",
+    "hints": [
+      "Action",
+      "Cars",
+      "Family"
+    ]
+  },
+  {
+    "id": 65,
+    "summary": "Love triangles but with extra songs and sweaters.",
+    "answer": "Kuch Kuch Hota Hai",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Romance",
+      "College"
+    ]
+  },
+  {
+    "id": 66,
+    "summary": "A man becomes a wolf and embraces furry chaos.",
+    "answer": "Bhediya",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Horror"
+    ]
+  },
+  {
+    "id": 67,
+    "summary": "Adults behave like children and somehow it works.",
+    "answer": "Golmaal",
+    "difficulty": "easy",
+    "hints": [
+      "Bollywood",
+      "Comedy",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 68,
+    "summary": "Tiny yellow beings exist purely for mischief.",
+    "answer": "Minions",
+    "difficulty": "easy",
+    "hints": [
+      "Animated",
+      "Comedy",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 69,
+    "summary": "A bachelor party becomes a mystery documentary.",
+    "answer": "The Hangover",
+    "difficulty": "easy",
+    "hints": [
+      "Comedy",
+      "Vegas",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 70,
+    "summary": "A family buys a house and instantly regrets it.",
+    "answer": "The Conjuring",
+    "difficulty": "easy",
+    "hints": [
+      "Horror",
+      "Haunted",
+      "Paranormal"
+    ]
+  },
+  {
+    "id": 71,
+    "summary": "A man learns reality is a software bug.",
+    "answer": "The Matrix",
+    "difficulty": "medium",
+    "hints": [
+      "Sci-fi",
+      "Simulation",
+      "Action"
+    ]
+  },
+  {
+    "id": 72,
+    "summary": "A father turns crime cover-up into an art form.",
+    "answer": "Drishyam",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Bollywood",
+      "Family"
+    ]
+  },
+  {
+    "id": 73,
+    "summary": "A runner outruns trauma and history.",
+    "answer": "Bhaag Milkha Bhaag",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Sports",
+      "Biopic"
+    ]
+  },
+  {
+    "id": 74,
+    "summary": "A woman goes on honeymoon alone and upgrades her life.",
+    "answer": "Queen",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Empowerment",
+      "Travel"
+    ]
+  },
+  {
+    "id": 75,
+    "summary": "A quiz show becomes a life flashback marathon.",
+    "answer": "Slumdog Millionaire",
+    "difficulty": "medium",
+    "hints": [
+      "Drama",
+      "India",
+      "Romance"
+    ]
+  },
+  {
+    "id": 76,
+    "summary": "A man travels to prove he's more than a label.",
+    "answer": "My Name Is Khan",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Drama",
+      "Journey"
+    ]
+  },
+  {
+    "id": 77,
+    "summary": "A detective investigates and needs therapy.",
+    "answer": "Shutter Island",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Twist",
+      "Psych"
+    ]
+  },
+  {
+    "id": 78,
+    "summary": "A dad leaves for space and returns with time problems.",
+    "answer": "Interstellar",
+    "difficulty": "medium",
+    "hints": [
+      "Space",
+      "Nolan",
+      "Time"
+    ]
+  },
+  {
+    "id": 79,
+    "summary": "A clown terrorizes Gotham and wins all the memes.",
+    "answer": "The Dark Knight",
+    "difficulty": "medium",
+    "hints": [
+      "Batman",
+      "Joker",
+      "DC"
+    ]
+  },
+  {
+    "id": 80,
+    "summary": "A man returns to India and finds purpose (and electricity issues).",
+    "answer": "Swades",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Drama",
+      "Patriotism"
+    ]
+  },
+  {
+    "id": 81,
+    "summary": "A man realizes his life is reality TV.",
+    "answer": "The Truman Show",
+    "difficulty": "medium",
+    "hints": [
+      "Drama",
+      "Satire",
+      "Freedom"
+    ]
+  },
+  {
+    "id": 82,
+    "summary": "A musician suffers artistically and romantically.",
+    "answer": "Rockstar",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Music",
+      "Drama"
+    ]
+  },
+  {
+    "id": 83,
+    "summary": "A family discovers greed has a horror subscription.",
+    "answer": "Tumbbad",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Horror",
+      "Myth"
+    ]
+  },
+  {
+    "id": 84,
+    "summary": "Generations of crime and legendary dialogues.",
+    "answer": "Gangs of Wasseypur",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Crime",
+      "Epic"
+    ]
+  },
+  {
+    "id": 85,
+    "summary": "A soldier and romance refuse to end peacefully.",
+    "answer": "Jab Tak Hai Jaan",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Romance",
+      "Drama"
+    ]
+  },
+  {
+    "id": 86,
+    "summary": "A poor family infiltrates rich people like it's a job interview.",
+    "answer": "Parasite",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Korean",
+      "Class"
+    ]
+  },
+  {
+    "id": 87,
+    "summary": "Cars, dust, and feminism in turbo mode.",
+    "answer": "Mad Max: Fury Road",
+    "difficulty": "medium",
+    "hints": [
+      "Action",
+      "Post-apocalyptic",
+      "Chase"
+    ]
+  },
+  {
+    "id": 88,
+    "summary": "A suitcase of money ruins everyone's day.",
+    "answer": "No Country for Old Men",
+    "difficulty": "medium",
+    "hints": [
+      "Crime",
+      "Thriller",
+      "Dark"
+    ]
+  },
+  {
+    "id": 89,
+    "summary": "Ballet but make it psychological warfare.",
+    "answer": "Black Swan",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Dance",
+      "Dark"
+    ]
+  },
+  {
+    "id": 90,
+    "summary": "Friends invent Facebook and lose friends.",
+    "answer": "The Social Network",
+    "difficulty": "medium",
+    "hints": [
+      "Tech",
+      "Drama",
+      "Betrayal"
+    ]
+  },
+  {
+    "id": 91,
+    "summary": "Two criminals become heroes while a villain steals the show.",
+    "answer": "Sholay",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Classic",
+      "Gabbar"
+    ]
+  },
+  {
+    "id": 92,
+    "summary": "A man discovers money and morals don't mix.",
+    "answer": "The Wolf of Wall Street",
+    "difficulty": "medium",
+    "hints": [
+      "Finance",
+      "Scorsese",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 93,
+    "summary": "A man refuses to die out of pure spite.",
+    "answer": "The Revenant",
+    "difficulty": "medium",
+    "hints": [
+      "Survival",
+      "Revenge",
+      "Bear"
+    ]
+  },
+  {
+    "id": 94,
+    "summary": "Marriage but with plot twists and trauma.",
+    "answer": "Gone Girl",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Mystery",
+      "Dark"
+    ]
+  },
+  {
+    "id": 95,
+    "summary": "A man gets revenge with dramatic speeches and sand.",
+    "answer": "Gladiator",
+    "difficulty": "medium",
+    "hints": [
+      "Rome",
+      "Revenge",
+      "Epic"
+    ]
+  },
+  {
+    "id": 96,
+    "summary": "A pregnant woman searches Kolkata and scares everyone.",
+    "answer": "Kahaani",
+    "difficulty": "medium",
+    "hints": [
+      "Thriller",
+      "Bollywood",
+      "Mystery"
+    ]
+  },
+  {
+    "id": 97,
+    "summary": "Everyone's life goes off-rails in one weird night.",
+    "answer": "Super Deluxe",
+    "difficulty": "medium",
+    "hints": [
+      "Indian",
+      "Dark comedy",
+      "Drama"
+    ]
+  },
+  {
+    "id": 98,
+    "summary": "A hotel concierge lives in aesthetic chaos.",
+    "answer": "The Grand Budapest Hotel",
+    "difficulty": "medium",
+    "hints": [
+      "Comedy",
+      "Wes Anderson",
+      "Style"
+    ]
+  },
+  {
+    "id": 99,
+    "summary": "A man falls in love with his operating system. Awkward.",
+    "answer": "Her",
+    "difficulty": "medium",
+    "hints": [
+      "Sci-fi",
+      "Romance",
+      "AI"
+    ]
+  },
+  {
+    "id": 100,
+    "summary": "A blind pianist gets dragged into murder and comedy.",
+    "answer": "Andhadhun",
+    "difficulty": "medium",
+    "hints": [
+      "Bollywood",
+      "Thriller",
+      "Dark comedy"
+    ]
+  },
+  {
+    "id": 101,
+    "summary": "Breakup therapy but they delete memories instead.",
+    "answer": "Eternal Sunshine of the Spotless Mind",
+    "difficulty": "hard",
+    "hints": [
+      "Romance",
+      "Sci-fi",
+      "Mind"
+    ]
+  },
+  {
+    "id": 102,
+    "summary": "Life unfolds slowly and heartbreakingly.",
+    "answer": "Pather Panchali",
+    "difficulty": "hard",
+    "hints": [
+      "Classic",
+      "Indian cinema",
+      "Art"
+    ]
+  },
+  {
+    "id": 103,
+    "summary": "Hamlet but set in Kashmir and emotionally devastating.",
+    "answer": "Haider",
+    "difficulty": "hard",
+    "hints": [
+      "Bollywood",
+      "Shakespeare",
+      "Tragedy"
+    ]
+  },
+  {
+    "id": 104,
+    "summary": "Cosmic visuals and existential parenting.",
+    "answer": "The Tree of Life",
+    "difficulty": "hard",
+    "hints": [
+      "Art",
+      "Terrence Malick",
+      "Deep"
+    ]
+  },
+  {
+    "id": 105,
+    "summary": "Violence, satire, and discomfort in one package.",
+    "answer": "A Clockwork Orange",
+    "difficulty": "hard",
+    "hints": [
+      "Cult",
+      "Dark",
+      "Kubrick"
+    ]
+  },
+  {
+    "id": 106,
+    "summary": "A teen meets a creepy rabbit and time collapses.",
+    "answer": "Donnie Darko",
+    "difficulty": "hard",
+    "hints": [
+      "Sci-fi",
+      "Cult",
+      "Dark"
+    ]
+  },
+  {
+    "id": 107,
+    "summary": "Philosophy disguised as cinema.",
+    "answer": "Ship of Theseus",
+    "difficulty": "hard",
+    "hints": [
+      "Indian",
+      "Indie",
+      "Thoughtful"
+    ]
+  },
+  {
+    "id": 108,
+    "summary": "A man solves a mystery with sticky notes and confusion.",
+    "answer": "Memento",
+    "difficulty": "hard",
+    "hints": [
+      "Memory",
+      "Thriller",
+      "Twist"
+    ]
+  },
+  {
+    "id": 109,
+    "summary": "A team enters a zone where biology does not behave.",
+    "answer": "Annihilation",
+    "difficulty": "hard",
+    "hints": [
+      "Sci-fi",
+      "Horror",
+      "Mind-bending"
+    ]
+  },
+  {
+    "id": 110,
+    "summary": "Everyone makes bad choices very artistically.",
+    "answer": "Requiem for a Dream",
+    "difficulty": "hard",
+    "hints": [
+      "Drama",
+      "Dark",
+      "Addiction"
+    ]
+  },
+  {
+    "id": 111,
+    "summary": "A boy fights family trauma and learns freedom.",
+    "answer": "Udaan",
+    "difficulty": "hard",
+    "hints": [
+      "Bollywood",
+      "Indie",
+      "Drama"
+    ]
+  },
+  {
+    "id": 112,
+    "summary": "Magicians compete and everyone suffers beautifully.",
+    "answer": "The Prestige",
+    "difficulty": "hard",
+    "hints": [
+      "Nolan",
+      "Magic",
+      "Rivalry"
+    ]
+  },
+  {
+    "id": 113,
+    "summary": "A man changes identities like outfits in a fever dream.",
+    "answer": "Holy Motors",
+    "difficulty": "hard",
+    "hints": [
+      "French",
+      "Surreal",
+      "Art"
+    ]
+  },
+  {
+    "id": 114,
+    "summary": "Family secrets explode across continents.",
+    "answer": "Incendies",
+    "difficulty": "hard",
+    "hints": [
+      "Drama",
+      "Twist",
+      "Heavy"
+    ]
+  },
+  {
+    "id": 115,
+    "summary": "Revenge with a twist you cannot unsee.",
+    "answer": "Oldboy",
+    "difficulty": "hard",
+    "hints": [
+      "Korean",
+      "Thriller",
+      "Dark"
+    ]
+  },
+  {
+    "id": 116,
+    "summary": "A man builds a life-sized play and spirals existentially.",
+    "answer": "Synecdoche, New York",
+    "difficulty": "hard",
+    "hints": [
+      "Art",
+      "Surreal",
+      "Drama"
+    ]
+  },
+  {
+    "id": 117,
+    "summary": "Hollywood dreams turn into nightmares.",
+    "answer": "Mulholland Drive",
+    "difficulty": "hard",
+    "hints": [
+      "Lynch",
+      "Mystery",
+      "Surreal"
+    ]
+  },
+  {
+    "id": 118,
+    "summary": "Two men lose sanity with seagulls judging them.",
+    "answer": "The Lighthouse",
+    "difficulty": "hard",
+    "hints": [
+      "Art",
+      "Psychological",
+      "Weird"
+    ]
+  },
+  {
+    "id": 119,
+    "summary": "Two men start a club and society panics.",
+    "answer": "Fight Club",
+    "difficulty": "hard",
+    "hints": [
+      "Cult",
+      "Twist",
+      "Chaos"
+    ]
+  },
+  {
+    "id": 120,
+    "summary": "Pop idol paranoia becomes psychological horror.",
+    "answer": "Perfect Blue",
+    "difficulty": "hard",
+    "hints": [
+      "Anime",
+      "Thriller",
+      "Mind-bending"
+    ]
+  }
+]
