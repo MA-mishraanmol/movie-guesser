@@ -2,15 +2,21 @@ import { useState } from "react";
 import movies from "./data/movies.json";
 
 export default function App() {
-  const [currentMovie, setCurrentMovie] = useState(movies[0]);
+  const [currentMovie, setCurrentMovie] = useState(
+  movies[Math.floor(Math.random() * movies.length)]
+);
+
 
   const [guess, setGuess] = useState("");
   const [result, setResult] = useState("");
 
-  // NEW: Suggestions list
+  // Autocomplete suggestions
   const [suggestions, setSuggestions] = useState([]);
 
-  // Handle typing + generate suggestions
+  // ✅ NEW: Hint system state
+  const [hintIndex, setHintIndex] = useState(0);
+
+  // Handle typing + suggestions
   function handleInputChange(e) {
     const value = e.target.value;
     setGuess(value);
@@ -20,23 +26,22 @@ export default function App() {
       return;
     }
 
-    // Filter movies that match typed text
     const filtered = movies
       .filter((movie) =>
         movie.answer.toLowerCase().includes(value.toLowerCase())
       )
-      .slice(0, 5); // show top 5 suggestions
+      .slice(0, 5);
 
     setSuggestions(filtered);
   }
 
-  // When user clicks a suggestion
+  // Click suggestion
   function handleSuggestionClick(movieName) {
     setGuess(movieName);
-    setSuggestions([]); // close dropdown
+    setSuggestions([]);
   }
 
-  // Check answer
+  // Submit answer
   function handleSubmit() {
     if (
       guess.trim().toLowerCase() ===
@@ -48,21 +53,35 @@ export default function App() {
     }
   }
 
-  // Next random movie
-  function handleNext() {
-    const randomIndex = Math.floor(Math.random() * movies.length);
-    setCurrentMovie(movies[randomIndex]);
-
-    setGuess("");
-    setResult("");
-    setSuggestions([]);
+  // ✅ Reveal next hint
+  function handleHint() {
+    if (hintIndex < currentMovie.hints.length) {
+      setHintIndex(hintIndex + 1);
+    }
   }
+
+  // Next movie
+  function handleNext() {
+  let randomIndex;
+
+  do {
+    randomIndex = Math.floor(Math.random() * movies.length);
+  } while (movies[randomIndex].id === currentMovie.id);
+
+  setCurrentMovie(movies[randomIndex]);
+
+  setGuess("");
+  setResult("");
+  setSuggestions([]);
+  setHintIndex(0);
+}
+
 
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>🎬 Guess The Movie</h1>
 
-      {/* Summary Card */}
+      {/* Summary */}
       <div style={styles.card}>
         <p style={styles.summary}>{currentMovie.summary}</p>
       </div>
@@ -76,7 +95,6 @@ export default function App() {
           placeholder="Type your movie guess..."
         />
 
-        {/* Suggestions Dropdown */}
         {suggestions.length > 0 && (
           <div style={styles.dropdown}>
             {suggestions.map((movie) => (
@@ -99,9 +117,32 @@ export default function App() {
         </button>
 
         <button style={styles.button} onClick={handleNext}>
-          Next Movie →
+          Next →
         </button>
       </div>
+
+      {/* ✅ Hint Button */}
+      <div style={{ marginTop: "15px" }}>
+        <button
+          style={styles.hintButton}
+          onClick={handleHint}
+          disabled={hintIndex >= currentMovie.hints.length}
+        >
+          💡 Hint ({hintIndex}/{currentMovie.hints.length})
+        </button>
+      </div>
+
+      {/* ✅ Show revealed hints */}
+      {hintIndex > 0 && (
+        <div style={styles.hintsBox}>
+          <h3>Hints:</h3>
+          <ul>
+            {currentMovie.hints.slice(0, hintIndex).map((hint, i) => (
+              <li key={i}>{hint}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Result */}
       {result && <h2 style={styles.result}>{result}</h2>}
@@ -143,7 +184,6 @@ const styles = {
     border: "1px solid gray",
   },
 
-  // Dropdown styling
   dropdown: {
     position: "absolute",
     top: "50px",
@@ -172,6 +212,26 @@ const styles = {
     fontSize: "1rem",
     cursor: "pointer",
   },
+
+  // ✅ Hint button style
+  hintButton: {
+    padding: "10px 16px",
+    fontSize: "1rem",
+    cursor: "pointer",
+    borderRadius: "8px",
+  },
+
+  // ✅ Hints box
+  hintsBox: {
+    marginTop: "20px",
+    maxWidth: "400px",
+    marginInline: "auto",
+    textAlign: "left",
+    padding: "15px",
+    border: "1px solid gray",
+    borderRadius: "10px",
+  },
+
   result: {
     marginTop: "25px",
   },
