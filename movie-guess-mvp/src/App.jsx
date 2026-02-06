@@ -1,24 +1,40 @@
 import { useState } from "react";
-import movies from "./data/movies.json";
+import moviesData from "./data/movies.json";
 import html2canvas from "html2canvas";
 
 export default function App() {
-  const [currentMovie, setCurrentMovie] = useState(
-    movies[Math.floor(Math.random() * movies.length)]
+  // ✅ Shuffle movies ONCE per session
+  const [movieQueue, setMovieQueue] = useState(() =>
+    [...moviesData].sort(() => Math.random() - 0.5)
   );
 
+  // Current index in queue
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Current movie
+  const currentMovie = movieQueue[currentIndex];
+
+  // Guess + autocomplete
   const [guess, setGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  // Hint system
   const [hintIndex, setHintIndex] = useState(0);
 
+  // Round state
   const [roundOver, setRoundOver] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
+  // Winning streak
   const [winningStreak, setWinningStreak] = useState(0);
+
+  // ✅ Last streak before losing/revealing
+  const [lastSuccessfulStreak, setLastSuccessfulStreak] = useState(0);
+
+  // Result message
   const [result, setResult] = useState("");
 
-  // Input handler
+  // Typing handler
   function handleInputChange(e) {
     if (roundOver) return;
 
@@ -30,7 +46,7 @@ export default function App() {
       return;
     }
 
-    const filtered = movies
+    const filtered = moviesData
       .filter((movie) =>
         movie.answer.toLowerCase().includes(value.toLowerCase())
       )
@@ -49,34 +65,39 @@ export default function App() {
     if (roundOver) return;
 
     const correct =
-      guess.trim().toLowerCase() ===
-      currentMovie.answer.trim().toLowerCase();
+      guess.trim().toLowerCase() === currentMovie.answer.toLowerCase();
 
     if (correct) {
       setResult("✅ Correct!");
       setWinningStreak(winningStreak + 1);
+
       setRoundOver(true);
       setSuggestions([]);
     } else {
+      // Snapshot streak before reset
+      setLastSuccessfulStreak(winningStreak);
+
       setResult("❌ Wrong! Answer revealed.");
       setRevealed(true);
       setRoundOver(true);
 
-      // streak resets
       setWinningStreak(0);
       setSuggestions([]);
     }
   }
 
-  // Hint system
+  // Hint button
   function handleHint() {
     if (roundOver) return;
     if (hintIndex < 3) setHintIndex(hintIndex + 1);
   }
 
-  // Reveal manually
+  // Reveal manually after 3 hints
   function handleReveal() {
     if (roundOver) return;
+
+    // Snapshot streak before reset
+    setLastSuccessfulStreak(winningStreak);
 
     setResult("👀 Answer Revealed!");
     setRevealed(true);
@@ -86,38 +107,35 @@ export default function App() {
     setSuggestions([]);
   }
 
-  // Next movie
+  // Next movie (sequential, no repeats)
   function handleNext() {
     if (!roundOver) return;
 
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * movies.length);
-    } while (movies[randomIndex].id === currentMovie.id);
+    // End of session
+    if (currentIndex + 1 >= movieQueue.length) {
+      alert("🎉 You completed all movies in this session!");
+      return;
+    }
 
-    setCurrentMovie(movies[randomIndex]);
+    setCurrentIndex(currentIndex + 1);
 
+    // Reset round
     setGuess("");
     setSuggestions([]);
     setHintIndex(0);
-
     setRoundOver(false);
     setRevealed(false);
     setResult("");
   }
 
-  // ✅ Generate Share Image Card
+  // Share Image Card
   async function handleShareImage() {
     const card = document.getElementById("share-card");
-
     if (!card) return;
 
     const canvas = await html2canvas(card);
-
-    // Convert canvas → image link
     const image = canvas.toDataURL("image/png");
 
-    // Download automatically
     const link = document.createElement("a");
     link.href = image;
     link.download = "guess-the-movie-result.png";
@@ -130,9 +148,7 @@ export default function App() {
       <div className="w-full max-w-xl rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl p-8 text-white">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold tracking-tight">
-            🎬 Guess The Movie
-          </h1>
+          <h1 className="text-3xl font-bold">🎬 Guess The Movie</h1>
 
           <div className="px-4 py-2 rounded-full bg-white/20 text-sm font-semibold">
             🔥 Streak: {winningStreak}
@@ -171,22 +187,22 @@ export default function App() {
           )}
         </div>
 
-        {/* Buttons */}
+        {/* ✅ Buttons: Hint LEFT, Submit RIGHT */}
         <div className="mt-6 flex gap-3">
-          <button
-            onClick={handleSubmit}
-            disabled={roundOver}
-            className="flex-1 rounded-xl py-3 font-semibold bg-purple-600 hover:bg-purple-700 transition disabled:opacity-50"
-          >
-            Submit
-          </button>
-
           <button
             onClick={handleHint}
             disabled={roundOver || hintIndex >= 3}
             className="flex-1 rounded-xl py-3 font-semibold bg-white/20 hover:bg-white/30 transition disabled:opacity-50"
           >
             💡 Hint ({hintIndex}/3)
+          </button>
+
+          <button
+            onClick={handleSubmit}
+            disabled={roundOver}
+            className="flex-1 rounded-xl py-3 font-semibold bg-purple-600 hover:bg-purple-700 transition disabled:opacity-50"
+          >
+            Submit
           </button>
         </div>
 
@@ -204,7 +220,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Reveal */}
+        {/* Reveal button */}
         {hintIndex === 3 && !roundOver && (
           <button
             onClick={handleReveal}
@@ -251,18 +267,28 @@ export default function App() {
         )}
       </div>
 
-      {/* ✅ Hidden Share Card (Rendered for Image Export) */}
+      {/* ✅ Share Card Uses Last Successful Streak */}
       <div
         id="share-card"
-        className="fixed -left-[9999px] top-0 w-[500px] p-8 rounded-3xl bg-gradient-to-br from-purple-700 to-black text-white"
+        className="fixed -left-[9999px] top-0 w-[500px] p-10 rounded-3xl 
+             bg-gradient-to-br from-purple-700 via-purple-800 to-black 
+             text-white shadow-2xl"
       >
-        <h1 className="text-3xl font-bold">🎬 Guess The Movie</h1>
+        {/* Title */}
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          🎬 Guess The Movie
+        </h1>
 
-        <p className="mt-4 text-xl">🔥 Winning Streak: {winningStreak}</p>
+        {/* Streak Only */}
+        <p className="mt-6 text-2xl font-bold">
+          🔥 Winning Streak:{" "}
+          <span className="text-yellow-300">
+            {roundOver ? lastSuccessfulStreak : winningStreak}
+          </span>
+        </p>
 
-        <p className="mt-3 text-lg">{result}</p>
-
-        <p className="mt-6 text-sm opacity-80">
+        {/* Footer */}
+        <p className="mt-12 text-lg opacity-80">
           Play now → Guess The Movie MVP
         </p>
       </div>
