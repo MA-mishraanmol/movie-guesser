@@ -262,7 +262,7 @@ export default function App() {
               className="flex-1 rounded-xl py-3 font-semibold bg-white/20 hover:bg-white/30 transition"
             >
               Next →
-            </button>
+            </button>  
           </div>
         )}
       </div>
