@@ -8,10 +8,10 @@
   },
   {
     "id": 2,
-    "summary": "A boy learns kung fu from a panda who is mostly motivated by snacks.",
+    "summary": "A clumsy, noodle-slurping animal learns Fighting after chosen as legendary Warrior.",
     "answer": "Kung Fu Panda",
     "difficulty": "easy",
-    "hints": ["Panda", "Martial arts", "Animated"]
+    "hints": ["Animated", "Valley of peace", "Kung-Fu"]
   },
   {
     "id": 3,
@@ -32,39 +32,39 @@
     "summary": "A man adopts a green ogre lifestyle and accidentally becomes a romance icon.",
     "answer": "Shrek",
     "difficulty": "easy",
-    "hints": ["Ogre", "Fairy tales", "Animated"]
+    "hints": ["Swamp", "Fairy tales", "That'll do, Donkey. That'll do"]
   },
   {
     "id": 6,
     "summary": "A wizard student spends 7 years trying not to die at school.",
     "answer": "Harry Potter",
     "difficulty": "easy",
-    "hints": ["Magic", "School", "Voldemort"]
+    "hints": ["Magic", "Owl postal service", "Expelliarmus"]
   },
   {
     "id": 7,
-    "summary": "A guy gets bitten by a spider and immediately chooses violence… responsibly.",
+    "summary": "A guy after an encounter with an insect immediately chooses violence… responsibly.",
     "answer": "Spider-Man",
     "difficulty": "easy",
-    "hints": ["Superhero", "Webs", "Marvel"]
+    "hints": ["Superhero", "Marvel", "Webs"]
   },
   {
     "id": 8,
-    "summary": "A billionaire dresses like a bat because therapy is too mainstream.",
+    "summary": "A billionaire dresses like a winged mammal because therapy is too mainstream.",
     "answer": "Batman Begins",
     "difficulty": "medium",
-    "hints": ["Gotham", "DC", "Masked hero"]
+    "hints": ["Masked hero", "DC", "Gotham"]
   },
   {
     "id": 9,
-    "summary": "A theme park owner thinks dinosaurs are a good business idea. Spoiler: they are not.",
+    "summary": "A theme park owner thinks pre-historic animals are a good business idea. Spoiler: they are not.",
     "answer": "Jurassic Park",
     "difficulty": "easy",
-    "hints": ["Dinosaurs", "Island", "Chaos"]
+    "hints": ["Island", "Fossilized mosquito", "Chaos"]
   },
   {
     "id": 10,
-    "summary": "A lion becomes king, gets depressed, then fixes everything with a musical number.",
+    "summary": "A lion child reclaims his throne in between musical numbers",
     "answer": "The Lion King",
     "difficulty": "easy",
     "hints": ["Africa", "Disney", "Simba"]
