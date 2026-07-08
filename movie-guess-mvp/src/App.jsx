@@ -144,57 +144,77 @@ export default function App() {
     link.click();
   }
 
+  const currentClue = currentMovie.summaries[tierIndex];
+  const totalTiers = currentMovie.summaries.length;
+  const isLastTier = tierIndex === totalTiers - 1;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-purple-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
       {/* Main Game Card */}
-      <div className="w-full max-w-xl rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl p-8 text-white">
+      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-8">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">🎬 Guess The Movie</h1>
+          <h1 className="text-xl font-semibold text-slate-900 tracking-tight">
+            Guess the Movie
+          </h1>
 
-          <div className="px-4 py-2 rounded-full bg-white/20 text-sm font-semibold">
-            🔥 Streak: {winningStreak}
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-sm font-medium text-indigo-700">
+            🔥 {winningStreak}
           </div>
         </div>
 
-        {/* Progressive summaries: hard -> medium -> easy, stacked as they're revealed */}
-        <div className="mt-6 space-y-3">
-          {currentMovie.summaries.slice(0, tierIndex + 1).map((s, i) => (
-            <div
-              key={s.tier}
-              className={`rounded-2xl p-6 border ${
-                i === tierIndex
-                  ? "bg-white/15 border-white/20"
-                  : "bg-white/5 border-white/10 opacity-60"
-              }`}
-            >
-              <span className="block text-xs uppercase tracking-wide font-semibold text-purple-300 mb-1">
-                {s.tier}
-              </span>
-              <p className="text-lg leading-relaxed">{s.text}</p>
-            </div>
-          ))}
+        {/* Progress: which clue we're on */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
+              Clue {tierIndex + 1} of {totalTiers}
+            </span>
+          </div>
+          <div className="flex gap-1.5">
+            {currentMovie.summaries.map((s, i) => (
+              <span
+                key={s.tier}
+                className={`h-1.5 flex-1 rounded-full transition-colors ${
+                  i <= tierIndex ? "bg-indigo-600" : "bg-slate-200"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Current clue */}
+        <div
+          key={tierIndex}
+          className="clue-fade-in mt-5 rounded-xl bg-slate-50 border border-slate-200 p-6"
+        >
+          <p className="text-lg leading-relaxed text-slate-800">
+            {currentClue.text}
+          </p>
         </div>
 
         {/* Input */}
-        <div className="mt-6 relative">
+        <div className="mt-5 relative">
           <input
             value={guess}
             onChange={handleInputChange}
             disabled={roundOver}
             placeholder="Type your guess..."
-            className={`w-full px-4 py-3 rounded-xl text-black font-medium outline-none
-              ${roundOver ? "bg-gray-300" : "bg-white"}
+            className={`w-full px-4 py-3 rounded-lg border text-slate-900 font-medium outline-none transition
+              ${
+                roundOver
+                  ? "bg-slate-100 border-slate-200 text-slate-400"
+                  : "bg-white border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              }
             `}
           />
 
           {!roundOver && suggestions.length > 0 && (
-            <div className="absolute mt-2 w-full rounded-xl bg-white shadow-lg overflow-hidden z-20">
+            <div className="absolute mt-2 w-full rounded-lg bg-white border border-slate-200 shadow-lg overflow-hidden z-20">
               {suggestions.map((movie) => (
                 <div
                   key={movie.id}
                   onClick={() => handleSuggestionClick(movie.answer)}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-200 text-black"
+                  className="px-4 py-2.5 cursor-pointer text-sm text-slate-700 hover:bg-indigo-50"
                 >
                   {movie.answer}
                 </div>
@@ -203,47 +223,53 @@ export default function App() {
           )}
         </div>
 
-        {/* ✅ Buttons: Next Clue LEFT, Submit RIGHT */}
-        <div className="mt-6 flex gap-3">
+        {/* Buttons: Next Clue LEFT, Submit RIGHT */}
+        <div className="mt-5 flex gap-3">
           <button
             onClick={handleNextClue}
-            disabled={roundOver || tierIndex >= currentMovie.summaries.length - 1}
-            className="flex-1 rounded-xl py-3 font-semibold bg-white/20 hover:bg-white/30 transition disabled:opacity-50"
+            disabled={roundOver || isLastTier}
+            className="flex-1 rounded-lg py-3 font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            🔓 Next Clue ({tierIndex + 1}/{currentMovie.summaries.length})
+            Next Clue
           </button>
 
           <button
             onClick={handleSubmit}
             disabled={roundOver}
-            className="flex-1 rounded-xl py-3 font-semibold bg-purple-600 hover:bg-purple-700 transition disabled:opacity-50"
+            className="flex-1 rounded-lg py-3 font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Submit
           </button>
         </div>
 
         {/* Reveal button */}
-        {tierIndex === currentMovie.summaries.length - 1 && !roundOver && (
+        {isLastTier && !roundOver && (
           <button
             onClick={handleReveal}
-            className="mt-5 w-full rounded-xl py-3 font-semibold bg-red-600 hover:bg-red-700 transition"
+            className="mt-3 w-full rounded-lg py-3 font-medium text-rose-600 bg-rose-50 border border-rose-200 hover:bg-rose-100 transition"
           >
-            👀 Reveal Answer
+            Reveal Answer
           </button>
         )}
 
         {/* Result */}
         {result && (
-          <div className="mt-6 text-center">
-            <h2 className="text-xl font-bold">{result}</h2>
+          <div
+            className={`mt-5 rounded-lg border px-4 py-3 text-center font-medium ${
+              revealed
+                ? "bg-rose-50 border-rose-200 text-rose-700"
+                : "bg-emerald-50 border-emerald-200 text-emerald-700"
+            }`}
+          >
+            {result}
           </div>
         )}
 
         {/* Answer */}
         {revealed && (
-          <p className="mt-3 text-center text-lg">
+          <p className="mt-3 text-center text-slate-600">
             Answer:{" "}
-            <span className="font-bold text-yellow-300">
+            <span className="font-semibold text-slate-900">
               {currentMovie.answer}
             </span>
           </p>
@@ -251,47 +277,46 @@ export default function App() {
 
         {/* Share + Next */}
         {roundOver && (
-          <div className="mt-6 flex gap-3">
+          <div className="mt-5 flex gap-3">
             <button
               onClick={handleShareImage}
-              className="flex-1 rounded-xl py-3 font-semibold bg-green-600 hover:bg-green-700 transition"
+              className="flex-1 rounded-lg py-3 font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 transition"
             >
-              🖼️ Share Card
+              Share Result
             </button>
 
             <button
               onClick={handleNext}
-              className="flex-1 rounded-xl py-3 font-semibold bg-white/20 hover:bg-white/30 transition"
+              className="flex-1 rounded-lg py-3 font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition"
             >
               Next →
-            </button>  
+            </button>
           </div>
         )}
       </div>
 
-      {/* ✅ Share Card Uses Last Successful Streak */}
+      {/* Share Card Uses Last Successful Streak */}
       <div
         id="share-card"
-        className="fixed -left-[9999px] top-0 w-[500px] p-10 rounded-3xl 
-             bg-gradient-to-br from-purple-700 via-purple-800 to-black 
-             text-white shadow-2xl"
+        className="fixed -left-[9999px] top-0 w-[500px] p-10 rounded-2xl
+             bg-white border-2 border-indigo-600 shadow-2xl"
       >
         {/* Title */}
-        <h1 className="text-4xl font-extrabold tracking-tight">
-          🎬 Guess The Movie
+        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+          Guess the Movie
         </h1>
 
         {/* Streak Only */}
-        <p className="mt-6 text-2xl font-bold">
-          🔥 Winning Streak:{" "}
-          <span className="text-yellow-300">
+        <p className="mt-6 text-2xl font-semibold text-slate-700">
+          Winning Streak:{" "}
+          <span className="text-indigo-600">
             {roundOver ? lastSuccessfulStreak : winningStreak}
           </span>
         </p>
 
         {/* Footer */}
-        <p className="mt-12 text-lg opacity-80">
-          Play now → Guess The Movie MVP
+        <p className="mt-12 text-base text-slate-400">
+          Play now → Guess The Movie
         </p>
       </div>
     </div>
