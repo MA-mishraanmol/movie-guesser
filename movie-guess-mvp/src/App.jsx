@@ -18,8 +18,8 @@ export default function App() {
   const [guess, setGuess] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
-  // Hint system
-  const [hintIndex, setHintIndex] = useState(0);
+  // Progressive summary reveal: 0 = hard only, 1 = +medium, 2 = +easy
+  const [tierIndex, setTierIndex] = useState(0);
 
   // Round state
   const [roundOver, setRoundOver] = useState(false);
@@ -86,13 +86,15 @@ export default function App() {
     }
   }
 
-  // Hint button
-  function handleHint() {
+  // Reveal next (easier) summary tier
+  function handleNextClue() {
     if (roundOver) return;
-    if (hintIndex < 3) setHintIndex(hintIndex + 1);
+    if (tierIndex < currentMovie.summaries.length - 1) {
+      setTierIndex(tierIndex + 1);
+    }
   }
 
-  // Reveal manually after 3 hints
+  // Reveal manually after all tiers are shown
   function handleReveal() {
     if (roundOver) return;
 
@@ -122,7 +124,7 @@ export default function App() {
     // Reset round
     setGuess("");
     setSuggestions([]);
-    setHintIndex(0);
+    setTierIndex(0);
     setRoundOver(false);
     setRevealed(false);
     setResult("");
@@ -155,9 +157,23 @@ export default function App() {
           </div>
         </div>
 
-        {/* Summary */}
-        <div className="mt-6 rounded-2xl bg-white/15 p-6 border border-white/10">
-          <p className="text-lg leading-relaxed">{currentMovie.summary}</p>
+        {/* Progressive summaries: hard -> medium -> easy, stacked as they're revealed */}
+        <div className="mt-6 space-y-3">
+          {currentMovie.summaries.slice(0, tierIndex + 1).map((s, i) => (
+            <div
+              key={s.tier}
+              className={`rounded-2xl p-6 border ${
+                i === tierIndex
+                  ? "bg-white/15 border-white/20"
+                  : "bg-white/5 border-white/10 opacity-60"
+              }`}
+            >
+              <span className="block text-xs uppercase tracking-wide font-semibold text-purple-300 mb-1">
+                {s.tier}
+              </span>
+              <p className="text-lg leading-relaxed">{s.text}</p>
+            </div>
+          ))}
         </div>
 
         {/* Input */}
@@ -187,14 +203,14 @@ export default function App() {
           )}
         </div>
 
-        {/* ✅ Buttons: Hint LEFT, Submit RIGHT */}
+        {/* ✅ Buttons: Next Clue LEFT, Submit RIGHT */}
         <div className="mt-6 flex gap-3">
           <button
-            onClick={handleHint}
-            disabled={roundOver || hintIndex >= 3}
+            onClick={handleNextClue}
+            disabled={roundOver || tierIndex >= currentMovie.summaries.length - 1}
             className="flex-1 rounded-xl py-3 font-semibold bg-white/20 hover:bg-white/30 transition disabled:opacity-50"
           >
-            💡 Hint ({hintIndex}/3)
+            🔓 Next Clue ({tierIndex + 1}/{currentMovie.summaries.length})
           </button>
 
           <button
@@ -206,22 +222,8 @@ export default function App() {
           </button>
         </div>
 
-        {/* Hint Chips */}
-        {hintIndex > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {currentMovie.hints.slice(0, hintIndex).map((hint, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 rounded-full bg-white/20 text-sm"
-              >
-                {hint}
-              </span>
-            ))}
-          </div>
-        )}
-
         {/* Reveal button */}
-        {hintIndex === 3 && !roundOver && (
+        {tierIndex === currentMovie.summaries.length - 1 && !roundOver && (
           <button
             onClick={handleReveal}
             className="mt-5 w-full rounded-xl py-3 font-semibold bg-red-600 hover:bg-red-700 transition"
