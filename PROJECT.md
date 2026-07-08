@@ -1,6 +1,7 @@
-# 🎬 Guess the Movie — Project Master Doc (V2)
+# 🎬 Guess the Movie — Project Master Doc (V3)
 
-*Last updated: 2026-07-08, after auditing actual repo state against the V1 vision doc.*
+*Last updated: 2026-07-09. Full history and roadmap now also live on Notion:*
+*[🎬 Guess the Movie — Project & Roadmap](https://app.notion.com/p/39725aafc8b481638506de88b8c35ae1) · [💡 Side Project Ideas](https://app.notion.com/p/39725aafc8b4816ba24fdd3339d91406)*
 
 ## Vision (unchanged)
 
@@ -14,79 +15,52 @@ friends." Difficulty comes from the writing style of the clue, never from pickin
 movie-guesser/                     ← git repo root
   movie-guess-mvp/                 ← Vite + React 19 + Tailwind app
     src/App.jsx                    ← entire game logic, single component
-    src/data/movies.json           ← 480 entries (LIVE data used by the app)
-../movies.json                     ← 120 entries, SIBLING file outside the repo, NOT used by the app
+    src/data/movies.json           ← 1000 entries (LIVE data used by the app)
+../movies.json                     ← 120 entries, SIBLING file outside the repo, still orphaned
 ../Movie guessing- 1st draft       ← original concept note (not a folder — a text file)
 ```
 
 **Stack:** React 19, Vite 7, Tailwind 3, html2canvas for share cards. No backend, no server,
 no database — everything is a static JSON import and local component state.
 
-## Reality check vs. the V1 doc
+## Current status (as of 2026-07-09)
 
-| V1 claim | Actual state |
-|---|---|
-| "≈500 movie entries, deduplicated" | `src/data/movies.json` has 480 entries but **96 duplicate titles** (e.g. Titanic, Inception, Shrek each appear 2+ times with different clues). Dedup has **not** been done yet. |
-| Loose `movies.json` at project root (120 entries) | Orphaned — not imported anywhere in the app. Likely an earlier/parallel draft. Needs a decision: merge, archive, or delete. |
-| 3-tier progressive summary system (hard→medium→easy, each independently funny) | Not implemented. Current schema is `{ id, summary, answer, difficulty, hints[] }` — **one** summary + 3 short keyword hints (e.g. `"Ship", "Romance", "Iceberg"}`), revealed via a manual "💡 Hint" button, not a timer. |
-| Timed rounds with decaying points (100/60/30) | Not implemented. Scoring today is just a **win streak counter**, reset to 0 on a wrong/revealed answer. No point values at all. |
-| Multiplayer, room codes, live leaderboard | Not implemented. Single-player only, no networking layer. |
-| Clue style rotation (HR email, police report, Reddit post, etc.) | Not implemented. All summaries are one-line jokes in a single consistent voice. |
-| Perspective-shift clues (Iceberg's POV, Wilson the volleyball, etc.) | Not implemented. |
-| Metadata (year, genre, cast, franchise, difficulty score, etc.) | Not implemented — schema only has `difficulty: easy/medium/hard` as a string. |
+- [x] Deduplicated the dataset: 480 raw entries → 384 unique movies (96 duplicates removed)
+- [x] Schema redesigned from `summary + hints[]` to `summaries: [{tier, text}]` (hard → medium → easy)
+- [x] Gameplay rebuilt around progressive single-clue reveal (one summary shown at a time, step
+      progress bar, no visible tier labels to players)
+- [x] UI redesigned: clean minimal light theme (white card, indigo accent) replacing the earlier
+      dark glassmorphism look
+- [x] Hand-written hard/medium/easy summaries for **all 384** originally-deduped movies
+- [x] Expanded the dataset from 384 → **1000 unique movies** (hit the original Phase 5 milestone)
+      — added 616 new titles across two passes spanning Hollywood classics/blockbusters, Bollywood
+      (old and new), South Indian cinema (Tamil/Telugu/Malayalam/Kannada), Korean cinema, anime,
+      animated/Pixar/Disney, musicals, war films, franchises (Star Wars, full Harry Potter, John
+      Wick, X-Men, MCU), biographies, cult classics, and world cinema — every one with its own
+      hand-written 3-tier summary set, zero duplicate titles verified programmatically each pass
+- [ ] Orphaned root-level `movies.json` (120 entries, not imported by the app) — still needs a
+      decision: merge, archive, or delete
+- [ ] Genre/decade/language balance pass — 1000 titles is broad but not yet evenly weighted
 
-**What exists that the vision doc doesn't mention (keep these — they're good):**
-- Autocomplete on the guess input (matches against all movie titles as you type)
-- Shuffled session queue so movies don't repeat within a playthrough
-- "Share Card" — renders a PNG of your streak via html2canvas for social sharing (very on-brand
-  for the "send this to my friends" goal — lean into this later for multiplayer/social hooks)
+## Data schema (current, live)
 
-## Immediate priorities (in order)
-
-### 1. Data cleanup (blocking everything else)
-- [ ] Decide fate of root-level `movies.json` (120 entries) — merge into `src/data/movies.json` or archive/delete
-- [ ] Deduplicate `src/data/movies.json` (96 duplicate answers currently) — for true dupes, decide
-      whether to keep one clue or use both as alternate clue variants for the same movie
-- [ ] Audit clue quality — cut weak/unfunny ones per the "handcrafted, funny, makes sense after
-      reveal" standard
-- [ ] Balance across genres/decades/languages once the above is clean
-
-### 2. Schema redesign
-Move from the current flat single-summary shape to something that supports the progressive
-3-tier reveal and future clue-style rotation, e.g.:
 ```json
 {
   "id": 1,
   "answer": "Titanic",
-  "year": 1997,
-  "genres": ["Romance", "Drama"],
-  "language": "English",
-  "category": "Hollywood",
-  "clues": [
-    { "tier": "hard",   "style": "reddit-post", "text": "..." },
-    { "tier": "medium", "style": "diary-entry",  "text": "..." },
-    { "tier": "easy",   "style": "fake-news",    "text": "..." }
+  "difficulty": "easy",
+  "summaries": [
+    { "tier": "hard", "text": "..." },
+    { "tier": "medium", "text": "..." },
+    { "tier": "easy", "text": "..." }
   ]
 }
 ```
-This is the highest-leverage change — every future feature (timers, scoring, clue rotation,
-replayability via 20-40 cards per movie) depends on this shape existing first.
 
-### 3. MVP gameplay loop rework
-- [ ] Replace manual hint-button with the timed progressive reveal (clue 1 → 20s → clue 2 → 15s
-      → clue 3 → 10s → reveal)
-- [ ] Wire up the 100/60/30 point scoring tied to which tier the player answered on
-- [ ] Keep the streak counter as a secondary stat (it already works and is satisfying)
-
-### 4. Multiplayer (post-MVP)
-- [ ] Needs a real backend/socket layer (out of scope for the current static-JSON app) — this is
-      the point where a lightweight server (e.g. Firebase, Supabase, or a small Node/WS service)
-      becomes necessary for room codes + synced timers + live leaderboard
-- [ ] Design room-code join flow, host controls, simultaneous-answer capture
-
-### 5. Content expansion
-Only after schema + cleanup are solid — expand toward 1000+ movies, 300+ TV series, anime,
-animated, Korean, Bollywood, South Indian per the original category targets.
+Future direction (once clue-style rotation ships) — add a `style` field per clue and grow each
+movie's `summaries` array toward 20-40 variants, e.g. `{ "tier": "hard", "style": "reddit-post", "text": "..." }`.
+Future metadata fields still to add: `year`, `genres`, `language`, `category`, `franchise`,
+`popularity`, `cast`, `director`, `oscarWinner`, `runtime`, `familyFriendly`.
 
 ## Clue philosophy (unchanged, this is the product)
 - Difficulty = clue cleverness, never obscure movie choice
@@ -96,10 +70,36 @@ animated, Korean, Bollywood, South Indian per the original category targets.
 - Every clue must be funny standalone AND make sense in hindsight after the reveal
 - Target 20-40 clue variants per movie eventually for replayability
 
+## Immediate priorities (in order)
+
+### 1. Gameplay loop rework
+- [ ] Replace manual "Next Clue" button with the timed progressive reveal (clue 1 → 20s → clue 2
+      → 15s → clue 3 → 10s → reveal)
+- [ ] Wire up 100/60/30 point scoring tied to which tier the player answered on (currently only a
+      win streak counter exists)
+
+### 2. Multiplayer (post-MVP)
+- [ ] Needs a real backend/socket layer (out of scope for the current static-JSON app) — likely
+      Firebase, Supabase, or a small Node/WS service for room codes + synced timers + live leaderboard
+- [ ] Design room-code join flow, host controls, simultaneous-answer capture
+
+### 3. Metadata + clue-style rotation
+- [ ] Add year/genre/language/category/cast/director fields per movie
+- [ ] Introduce the `style` field and start rotating clue voice (HR email, police report, Reddit
+      post, etc.) — a handful of movies already have rotated-style clues baked in as a preview
+      (Haunted Mansion, Harry Potter, Godzilla, Cinderella, etc.)
+- [ ] Perspective-shift clues (told from the iceberg, the ring, a bystander)
+
+### 4. Further content growth
+- [x] 1000 / 1000+ movies — original milestone hit
+- [ ] TV Series (300+), Anime as its own tracked category (150+ target — some anime films already
+      mixed into the movie set), more Animated Movies (100+)
+- [ ] Documentaries, Classic Cinema, Cult Classics, Christmas, Halloween, Oscar Winners, Sports,
+      Biographies (post-1000 category expansion)
+
 ## Open questions to resolve with the user before building further
-1. Root `movies.json` (120 entries) vs `src/data/movies.json` (480 entries) — which is
+1. Root `movies.json` (120 entries) vs `src/data/movies.json` (1000 entries) — which is
    canonical, or should they be merged?
-2. For the 96 duplicate titles already in the live dataset — treat duplicates as bugs to delete,
-   or as the start of the "multiple clue variants per movie" system?
-3. Multiplayer backend preference (Firebase/Supabase/custom Node+WebSocket/other) — affects how
+2. Multiplayer backend preference (Firebase/Supabase/custom Node+WebSocket/other) — affects how
    soon infra work needs to start vs. continuing solo on single-player content/schema.
+3. Timed reveal + scoring — build now, or keep growing content/metadata first?

@@ -136,12 +136,36 @@ export default function App() {
     if (!card) return;
 
     const canvas = await html2canvas(card);
-    const image = canvas.toDataURL("image/png");
 
-    const link = document.createElement("a");
-    link.href = image;
-    link.download = "guess-the-movie-result.png";
-    link.click();
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+      const file = new File([blob], "guess-the-movie-result.png", {
+        type: "image/png",
+      });
+
+      // Mobile browsers (iOS Safari doesn't support the download attribute):
+      // use the native share sheet so the image can actually be saved/shared.
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: "Guess the Movie",
+            text: "Check out my streak on Guess the Movie!",
+          });
+          return;
+        } catch (err) {
+          if (err?.name === "AbortError") return;
+        }
+      }
+
+      // Desktop / unsupported browsers: fall back to a direct download.
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "guess-the-movie-result.png";
+      link.click();
+      URL.revokeObjectURL(url);
+    }, "image/png");
   }
 
   const currentClue = currentMovie.summaries[tierIndex];
@@ -149,22 +173,22 @@ export default function App() {
   const isLastTier = tierIndex === totalTiers - 1;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
       {/* Main Game Card */}
-      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-8">
+      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-4 sm:p-8">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-slate-900 tracking-tight">
+        <div className="flex items-center justify-between gap-2">
+          <h1 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
             Guess the Movie
           </h1>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-sm font-medium text-indigo-700">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-sm font-medium text-indigo-700 shrink-0">
             🔥 {winningStreak}
           </div>
         </div>
 
         {/* Progress: which clue we're on */}
-        <div className="mt-6">
+        <div className="mt-5 sm:mt-6">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium uppercase tracking-wide text-slate-400">
               Clue {tierIndex + 1} of {totalTiers}
@@ -185,21 +209,25 @@ export default function App() {
         {/* Current clue */}
         <div
           key={tierIndex}
-          className="clue-fade-in mt-5 rounded-xl bg-slate-50 border border-slate-200 p-6"
+          className="clue-fade-in mt-4 sm:mt-5 rounded-xl bg-slate-50 border border-slate-200 p-4 sm:p-6"
         >
-          <p className="text-lg leading-relaxed text-slate-800">
+          <p className="text-base sm:text-lg leading-relaxed text-slate-800 break-words">
             {currentClue.text}
           </p>
         </div>
 
         {/* Input */}
-        <div className="mt-5 relative">
+        <div className="mt-4 sm:mt-5 relative">
           <input
             value={guess}
             onChange={handleInputChange}
             disabled={roundOver}
             placeholder="Type your guess..."
-            className={`w-full px-4 py-3 rounded-lg border text-slate-900 font-medium outline-none transition
+            inputMode="text"
+            autoCapitalize="words"
+            autoCorrect="off"
+            autoComplete="off"
+            className={`w-full px-4 py-3 rounded-lg border text-base text-slate-900 font-medium outline-none transition
               ${
                 roundOver
                   ? "bg-slate-100 border-slate-200 text-slate-400"
@@ -209,12 +237,12 @@ export default function App() {
           />
 
           {!roundOver && suggestions.length > 0 && (
-            <div className="absolute mt-2 w-full rounded-lg bg-white border border-slate-200 shadow-lg overflow-hidden z-20">
+            <div className="absolute mt-2 w-full max-h-60 overflow-y-auto rounded-lg bg-white border border-slate-200 shadow-lg overflow-hidden z-20">
               {suggestions.map((movie) => (
                 <div
                   key={movie.id}
                   onClick={() => handleSuggestionClick(movie.answer)}
-                  className="px-4 py-2.5 cursor-pointer text-sm text-slate-700 hover:bg-indigo-50"
+                  className="px-4 py-3 sm:py-2.5 cursor-pointer text-sm text-slate-700 hover:bg-indigo-50 active:bg-indigo-100"
                 >
                   {movie.answer}
                 </div>
@@ -224,11 +252,11 @@ export default function App() {
         </div>
 
         {/* Buttons: Next Clue LEFT, Submit RIGHT */}
-        <div className="mt-5 flex gap-3">
+        <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
           <button
             onClick={handleNextClue}
             disabled={roundOver || isLastTier}
-            className="flex-1 rounded-lg py-3 font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 transition disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex-1 rounded-lg py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Next Clue
           </button>
@@ -236,7 +264,7 @@ export default function App() {
           <button
             onClick={handleSubmit}
             disabled={roundOver}
-            className="flex-1 rounded-lg py-3 font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex-1 rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Submit
           </button>
@@ -246,7 +274,7 @@ export default function App() {
         {isLastTier && !roundOver && (
           <button
             onClick={handleReveal}
-            className="mt-3 w-full rounded-lg py-3 font-medium text-rose-600 bg-rose-50 border border-rose-200 hover:bg-rose-100 transition"
+            className="mt-3 w-full rounded-lg py-3 text-sm sm:text-base font-medium text-rose-600 bg-rose-50 border border-rose-200 hover:bg-rose-100 active:bg-rose-200 transition"
           >
             Reveal Answer
           </button>
@@ -255,7 +283,7 @@ export default function App() {
         {/* Result */}
         {result && (
           <div
-            className={`mt-5 rounded-lg border px-4 py-3 text-center font-medium ${
+            className={`mt-4 sm:mt-5 rounded-lg border px-4 py-3 text-center text-sm sm:text-base font-medium ${
               revealed
                 ? "bg-rose-50 border-rose-200 text-rose-700"
                 : "bg-emerald-50 border-emerald-200 text-emerald-700"
@@ -267,7 +295,7 @@ export default function App() {
 
         {/* Answer */}
         {revealed && (
-          <p className="mt-3 text-center text-slate-600">
+          <p className="mt-3 text-center text-sm sm:text-base text-slate-600 break-words">
             Answer:{" "}
             <span className="font-semibold text-slate-900">
               {currentMovie.answer}
@@ -277,17 +305,17 @@ export default function App() {
 
         {/* Share + Next */}
         {roundOver && (
-          <div className="mt-5 flex gap-3">
+          <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
             <button
               onClick={handleShareImage}
-              className="flex-1 rounded-lg py-3 font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 transition"
+              className="flex-1 rounded-lg py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition"
             >
               Share Result
             </button>
 
             <button
               onClick={handleNext}
-              className="flex-1 rounded-lg py-3 font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition"
+              className="flex-1 rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition"
             >
               Next →
             </button>
