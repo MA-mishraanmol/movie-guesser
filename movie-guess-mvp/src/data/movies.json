@@ -1238,5 +1238,355 @@
       "Thriller",
       "Mind-bending"
     ]
+  },
+  {
+    "id": 121,
+    "summary": "An archaeologist treats museums like personal storage units.",
+    "answer": "Raiders of the Lost Ark",
+    "difficulty": "easy",
+    "hints": ["Indiana Jones", "Whip", "Ark"]
+  },
+  {
+    "id": 122,
+    "summary": "A lawyer lies for one day and discovers honesty is exhausting.",
+    "answer": "Liar Liar",
+    "difficulty": "easy",
+    "hints": ["Jim Carrey", "Courtroom", "Truth"]
+  },
+  {
+    "id": 123,
+    "summary": "A giant monkey falls in love and absolutely demolishes city property.",
+    "answer": "King Kong",
+    "difficulty": "easy",
+    "hints": ["Giant ape", "Empire State Building", "Adventure"]
+  },
+  {
+    "id": 124,
+    "summary": "An unemployed dad becomes a nanny and accidentally wins at parenting.",
+    "answer": "Mrs. Doubtfire",
+    "difficulty": "easy",
+    "hints": ["Robin Williams", "Disguise", "Family"]
+  },
+  {
+    "id": 125,
+    "summary": "An ogre's honeymoon somehow turns into political drama.",
+    "answer": "Shrek 2",
+    "difficulty": "easy",
+    "hints": ["Fairy Godmother", "Donkey", "Animated"]
+  },
+  {
+    "id": 126,
+    "summary": "A chef with terrible hygiene becomes France's greatest cook.",
+    "answer": "Ratatouille",
+    "difficulty": "easy",
+    "hints": ["Pixar", "Rat", "Paris"]
+  },
+  {
+    "id": 127,
+    "summary": "An old man flies away because airlines are too expensive.",
+    "answer": "Up",
+    "difficulty": "easy",
+    "hints": ["Pixar", "Balloons", "Adventure"]
+  },
+  {
+    "id": 128,
+    "summary": "A family of superheroes discovers office jobs are the real villains.",
+    "answer": "The Incredibles",
+    "difficulty": "easy",
+    "hints": ["Pixar", "Superhero family", "Syndrome"]
+  },
+  {
+    "id": 129,
+    "summary": "A dragon kidnaps a princess and somehow isn't the biggest problem.",
+    "answer": "Sleeping Beauty",
+    "difficulty": "easy",
+    "hints": ["Disney", "Fairy tale", "Prince"]
+  },
+  {
+    "id": 130,
+    "summary": "A talking bear proves manners are stronger than immigration paperwork.",
+    "answer": "Paddington",
+    "difficulty": "easy",
+    "hints": ["Bear", "London", "Family"]
+  },
+  {
+    "id": 131,
+    "summary": "A toy cowboy develops abandonment issues with remarkable professionalism.",
+    "answer": "Toy Story 2",
+    "difficulty": "easy",
+    "hints": ["Woody", "Pixar", "Collector"]
+  },
+  {
+    "id": 132,
+    "summary": "A family vacation becomes an accidental wildlife documentary.",
+    "answer": "Ice Age",
+    "difficulty": "easy",
+    "hints": ["Mammoth", "Scrat", "Animated"]
+  },
+  {
+    "id": 133,
+    "summary": "A villain adopts three children and instantly loses every argument.",
+    "answer": "Despicable Me",
+    "difficulty": "easy",
+    "hints": ["Minions", "Gru", "Animated"]
+  },
+  {
+    "id": 134,
+    "summary": "A Viking befriends the one creature everyone told him to stab.",
+    "answer": "How to Train Your Dragon",
+    "difficulty": "easy",
+    "hints": ["Toothless", "DreamWorks", "Dragons"]
+  },
+  {
+    "id": 135,
+    "summary": "A panda discovers inner peace after several dramatic lunch breaks.",
+    "answer": "Kung Fu Panda 2",
+    "difficulty": "easy",
+    "hints": ["Po", "Peacock", "Animated"]
+  },
+  {
+    "id": 136,
+    "summary": "A secret agent orders drinks with unnecessary confidence.",
+    "answer": "Casino Royale",
+    "difficulty": "medium",
+    "hints": ["James Bond", "Poker", "007"]
+  },
+  {
+    "id": 137,
+    "summary": "A spy hangs off buildings because stairs are apparently optional.",
+    "answer": "Mission: Impossible - Ghost Protocol",
+    "difficulty": "medium",
+    "hints": ["Tom Cruise", "Dubai", "Impossible Mission"]
+  },
+  {
+    "id": 138,
+    "summary": "A pirate survives entirely on luck, rum, and questionable decision-making.",
+    "answer": "Pirates of the Caribbean: The Curse of the Black Pearl",
+    "difficulty": "easy",
+    "hints": ["Jack Sparrow", "Black Pearl", "Pirates"]
+  },
+  {
+    "id": 139,
+    "summary": "A barber gives customers the closest shave of their lives.",
+    "answer": "Sweeney Todd: The Demon Barber of Fleet Street",
+    "difficulty": "medium",
+    "hints": ["Johnny Depp", "Musical", "London"]
+  },
+  {
+    "id": 140,
+    "summary": "One ring creates centuries of cardio.",
+    "answer": "The Lord of the Rings: The Fellowship of the Ring",
+    "difficulty": "easy",
+    "hints": ["Middle-earth", "Hobbits", "Ring"]
+  },
+  {
+    "id": 141,
+    "summary": "A tiny hobbit spends three movies trying to return borrowed jewelry.",
+    "answer": "The Lord of the Rings: The Return of the King",
+    "difficulty": "easy",
+    "hints": ["Mount Doom", "Aragorn", "Epic"]
+  },
+  {
+    "id": 142,
+    "summary": "A wizard recruits a burglar to annoy a dragon.",
+    "answer": "The Hobbit: An Unexpected Journey",
+    "difficulty": "easy",
+    "hints": ["Bilbo", "Gandalf", "Dragon"]
+  },
+  {
+    "id": 143,
+    "summary": "A boxer solves most of life's problems one punch at a time.",
+    "answer": "Rocky",
+    "difficulty": "easy",
+    "hints": ["Boxing", "Philadelphia", "Training montage"]
+  },
+  {
+    "id": 144,
+    "summary": "A retired assassin just wanted to grieve, but someone touched the dog.",
+    "answer": "John Wick",
+    "difficulty": "easy",
+    "hints": ["Keanu Reeves", "Dog", "Hitman"]
+  },
+  {
+    "id": 145,
+    "summary": "A pilot smiles through every international safety violation imaginable.",
+    "answer": "Top Gun",
+    "difficulty": "easy",
+    "hints": ["Tom Cruise", "Fighter jets", "Maverick"]
+  },
+  {
+    "id": 146,
+    "summary": "A banker gets terrible customer service and responds with decades of patience.",
+    "answer": "The Shawshank Redemption",
+    "difficulty": "easy",
+    "hints": ["Prison", "Andy Dufresne", "Hope"]
+  },
+  {
+    "id": 147,
+    "summary": "A teenager cashes more paychecks than most adults before finishing high school.",
+    "answer": "Catch Me If You Can",
+    "difficulty": "easy",
+    "hints": ["Leonardo DiCaprio", "Con artist", "FBI"]
+  },
+  {
+    "id": 148,
+    "summary": "A physicist wins a Nobel Prize for inventing everyone's worst nightmare.",
+    "answer": "Oppenheimer",
+    "difficulty": "easy",
+    "hints": ["Christopher Nolan", "Atomic bomb", "Biopic"]
+  },
+  {
+    "id": 149,
+    "summary": "Everyone really wants a desert that's somehow worth dying for.",
+    "answer": "Dune",
+    "difficulty": "easy",
+    "hints": ["Arrakis", "Spice", "Sandworms"]
+  },
+  {
+    "id": 150,
+    "summary": "A giant man proves kindness is a superpower and heartbreak is inevitable.",
+    "answer": "The Green Mile",
+    "difficulty": "medium",
+    "hints": ["Prison", "Tom Hanks", "John Coffey"]
+  },
+  {
+    "id": 151,
+    "summary": "A robot travels back in time to become the coolest babysitter ever.",
+    "answer": "Terminator 2: Judgment Day",
+    "difficulty": "easy",
+    "hints": ["Arnold Schwarzenegger", "Hasta la vista", "Skynet"]
+  },
+  {
+    "id": 152,
+    "summary": "An office worker spends Christmas fixing HR's biggest security incident.",
+    "answer": "Die Hard",
+    "difficulty": "easy",
+    "hints": ["Bruce Willis", "Nakatomi Plaza", "Christmas"]
+  },
+  {
+    "id": 153,
+    "summary": "A beach town discovers the ocean has upgraded to hard mode.",
+    "answer": "Jaws",
+    "difficulty": "easy",
+    "hints": ["Shark", "Beach", "Steven Spielberg"]
+  },
+  {
+    "id": 154,
+    "summary": "A psychiatrist gives career advice that's deeply unsettling.",
+    "answer": "The Silence of the Lambs",
+    "difficulty": "medium",
+    "hints": ["Hannibal Lecter", "FBI", "Thriller"]
+  },
+  {
+    "id": 155,
+    "summary": "A general loses everything except his ability to make revenge look inspirational.",
+    "answer": "Gladiator",
+    "difficulty": "easy",
+    "hints": ["Rome", "Russell Crowe", "Arena"]
+  },
+  {
+    "id": 156,
+    "summary": "Two kingdoms spend years arguing over a waterfall with incredible production values.",
+    "answer": "Baahubali: The Beginning",
+    "difficulty": "easy",
+    "hints": ["Indian", "S. S. Rajamouli", "Mahishmati"]
+  },
+  {
+    "id": 157,
+    "summary": "A son climbs a waterfall just to unlock family drama DLC.",
+    "answer": "Baahubali 2: The Conclusion",
+    "difficulty": "easy",
+    "hints": ["Katappa", "Mahendra", "Epic"]
+  },
+  {
+    "id": 158,
+    "summary": "A gangster discovers laughter is cheaper than bullets.",
+    "answer": "Munna Bhai M.B.B.S.",
+    "difficulty": "easy",
+    "hints": ["Bollywood", "Hospital", "Circuit"]
+  },
+  {
+    "id": 159,
+    "summary": "A fake Gandhian fixes society using unlimited confidence.",
+    "answer": "Lage Raho Munna Bhai",
+    "difficulty": "easy",
+    "hints": ["Gandhigiri", "Munna", "Comedy"]
+  },
+  {
+    "id": 160,
+    "summary": "A hockey coach weaponizes patriotism and passive aggression.",
+    "answer": "Chak De! India",
+    "difficulty": "easy",
+    "hints": ["Women's Hockey", "Shah Rukh Khan", "Sports"]
+  },
+  {
+    "id": 161,
+    "summary": "College students accidentally schedule a revolution between classes.",
+    "answer": "Rang De Basanti",
+    "difficulty": "easy",
+    "hints": ["Friends", "Freedom fighters", "Bollywood"]
+  },
+  {
+    "id": 162,
+    "summary": "A team of con artists proves paperwork can be more dangerous than guns.",
+    "answer": "Special 26",
+    "difficulty": "medium",
+    "hints": ["Fake CBI", "Akshay Kumar", "Heist"]
+  },
+  {
+    "id": 163,
+    "summary": "An accountant discovers taxes are easier than surviving gangsters.",
+    "answer": "Raid",
+    "difficulty": "medium",
+    "hints": ["Income Tax", "Ajay Devgn", "Corruption"]
+  },
+  {
+    "id": 164,
+    "summary": "A lawyer argues with God and somehow gets a court date.",
+    "answer": "OMG: Oh My God!",
+    "difficulty": "easy",
+    "hints": ["Bollywood", "Religion", "Courtroom"]
+  },
+  {
+    "id": 165,
+    "summary": "A classroom bully accidentally becomes everyone's favorite teacher.",
+    "answer": "Chhichhore",
+    "difficulty": "easy",
+    "hints": ["College", "Friendship", "Bollywood"]
+  },
+  {
+    "id": 166,
+    "summary": "A man lies professionally until emotions become part of the job description.",
+    "answer": "Tamasha",
+    "difficulty": "medium",
+    "hints": ["Ranbir Kapoor", "Corsica", "Self-discovery"]
+  },
+  {
+    "id": 167,
+    "summary": "A police officer decides the legal system is moving way too slowly.",
+    "answer": "Article 15",
+    "difficulty": "medium",
+    "hints": ["Ayushmann Khurrana", "Crime", "Social drama"]
+  },
+  {
+    "id": 168,
+    "summary": "A lawyer wins a case by remembering absolutely everything except sleep.",
+    "answer": "Pink",
+    "difficulty": "medium",
+    "hints": ["Amitabh Bachchan", "Courtroom", "No means no"]
+  },
+  {
+    "id": 169,
+    "summary": "A daughter spends more time finding a husband for her mom than herself.",
+    "answer": "Piku",
+    "difficulty": "easy",
+    "hints": ["Road trip", "Father-daughter", "Bollywood"]
+  },
+  {
+    "id": 170,
+    "summary": "A family argues about bowel movements with surprising emotional depth.",
+    "answer": "Piku",
+    "difficulty": "hard",
+    "hints": ["Amitabh Bachchan", "Constipation", "Road trip"]
   }
 ]
