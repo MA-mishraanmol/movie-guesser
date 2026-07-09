@@ -1,6 +1,6 @@
-# 🎬 Guess the Movie — Project Master Doc (V3)
+# 🎬 Guess the Movie — Project Master Doc (V4)
 
-*Last updated: 2026-07-09. Full history and roadmap now also live on Notion:*
+*Last updated: 2026-07-10. Full history and roadmap now also live on Notion:*
 *[🎬 Guess the Movie — Project & Roadmap](https://app.notion.com/p/39725aafc8b481638506de88b8c35ae1) · [💡 Side Project Ideas](https://app.notion.com/p/39725aafc8b4816ba24fdd3339d91406)*
 
 ## Vision (unchanged)
@@ -9,41 +9,62 @@ Not another movie trivia quiz — a **party game** (Jackbox / Psych! / Heads Up 
 *clues themselves* are the entertainment. Success looks like: "I need to send this game to my
 friends." Difficulty comes from the writing style of the clue, never from picking obscure movies.
 
+## ⚠️ Action needed before multiplayer works
+
+Multiplayer needs a live Supabase project — I can't create this myself. To activate it:
+1. Create a free project at [supabase.com](https://supabase.com)
+2. Open the SQL editor and run `movie-guess-mvp/supabase/schema.sql`
+3. Copy `movie-guess-mvp/.env.example` → `.env.local` and fill in your project's URL + anon key
+   (Dashboard → Project Settings → API)
+4. `npm run dev` — the "Play with Friends" flow will light up automatically once those env vars
+   are present (it shows a friendly "not set up yet" message until then, solo mode is unaffected)
+
 ## Where the code actually is
 
 ```
-movie-guesser/                     ← git repo root
-  movie-guess-mvp/                 ← Vite + React 19 + Tailwind app
-    src/App.jsx                    ← entire game logic, single component
-    src/data/movies.json           ← 1000 entries (LIVE data used by the app)
-../movies.json                     ← 120 entries, SIBLING file outside the repo, still orphaned
-../Movie guessing- 1st draft       ← original concept note (not a folder — a text file)
+movie-guesser/                       ← git repo root
+  movie-guess-mvp/                   ← Vite + React 19 + Tailwind app
+    src/App.jsx                      ← top-level switcher: menu → Solo or Multiplayer
+    src/components/SoloGame.jsx      ← single-player game (unchanged logic, extracted from App.jsx)
+    src/components/ClueCard.jsx      ← shared clue+progress-dot UI (solo & multiplayer)
+    src/components/multiplayer/      ← Home (create/join), Lobby, GameRoom, RoundResult, Leaderboard
+    src/hooks/useRoom.js             ← Supabase Realtime subscription (rooms/players/answers)
+    src/lib/supabaseClient.js        ← Supabase client, reads VITE_SUPABASE_URL / _ANON_KEY
+    src/lib/roomActions.js           ← createRoom/joinRoom/startGame/submitGuess/finishRound/nextRound
+    src/lib/roomCode.js              ← room code generator + player color palette
+    src/lib/gameConfig.js            ← tier durations (30s/20s/20s), points (100/60/30)
+    src/data/movies.json             ← 1000 entries (LIVE data used by the app)
+    supabase/schema.sql              ← run this once in your Supabase project's SQL editor
+../movies.json                       ← 120 entries, SIBLING file outside the repo, still orphaned
+../Movie guessing- 1st draft         ← original concept note (not a folder — a text file)
 ```
 
-**Stack:** React 19, Vite 7, Tailwind 3, html2canvas for share cards. No backend, no server,
-no database — everything is a static JSON import and local component state.
+**Stack:** React 19, Vite 7, Tailwind 3, html2canvas for share cards, **Supabase (Postgres +
+Realtime) for multiplayer**. Solo mode still has zero backend dependency.
 
-## Current status (as of 2026-07-09)
+## Current status (as of 2026-07-10)
 
-- [x] Deduplicated the dataset: 480 raw entries → 384 unique movies (96 duplicates removed)
-- [x] Schema redesigned from `summary + hints[]` to `summaries: [{tier, text}]` (hard → medium → easy)
-- [x] Gameplay rebuilt around progressive single-clue reveal (one summary shown at a time, step
-      progress bar, no visible tier labels to players)
-- [x] UI redesigned: clean minimal light theme (white card, indigo accent) replacing the earlier
-      dark glassmorphism look
-- [x] Hand-written hard/medium/easy summaries for **all 384** originally-deduped movies
-- [x] Expanded the dataset from 384 → **1000 unique movies** (hit the original Phase 5 milestone)
-      — added 616 new titles across two passes spanning Hollywood classics/blockbusters, Bollywood
-      (old and new), South Indian cinema (Tamil/Telugu/Malayalam/Kannada), Korean cinema, anime,
-      animated/Pixar/Disney, musicals, war films, franchises (Star Wars, full Harry Potter, John
-      Wick, X-Men, MCU), biographies, cult classics, and world cinema — every one with its own
-      hand-written 3-tier summary set, zero duplicate titles verified programmatically each pass
+- [x] Deduplicated the dataset, redesigned schema (`summaries: [{tier, text}]`), rebuilt gameplay
+      around progressive single-clue reveal, redesigned UI (clean light theme, indigo accent)
+- [x] Expanded the dataset to **1000 unique movies**, all hand-written, zero duplicates
+- [x] Mobile-responsive pass across all screens (320px–1440px verified), native share sheet on
+      mobile instead of a broken download link
+- [x] **Multiplayer mode built** — Psych!/Kahoot-style room-code party game:
+      - Host creates a room (4-char code) or players join with a code + nickname, no login
+      - Lobby shows live player list, host starts the game
+      - Synced game screen: everyone sees the same clue at the same time, live countdown
+        (30s hard → 20s medium → 20s easy), scored 100/60/30 by which tier you answered on
+      - Round-result screen with per-player point deltas + live standings after every round
+      - Final podium + full leaderboard, host can start a new game in the same room
+      - Backend: Supabase Realtime (Postgres Changes subscriptions) — **not yet connected to a
+        real project**, see "Action needed" above
 - [ ] Orphaned root-level `movies.json` (120 entries, not imported by the app) — still needs a
       decision: merge, archive, or delete
 - [ ] Genre/decade/language balance pass — 1000 titles is broad but not yet evenly weighted
 
 ## Data schema (current, live)
 
+**Movies** (`src/data/movies.json`):
 ```json
 {
   "id": 1,
@@ -56,6 +77,18 @@ no database — everything is a static JSON import and local component state.
   ]
 }
 ```
+
+**Multiplayer** (Supabase/Postgres, see `supabase/schema.sql` for the full DDL + RLS policies):
+- `rooms` — code, host_player_id, status (lobby/playing/round_result/game_over), movie_queue,
+  round_index, tier_index, tier_deadline
+- `players` — room_code, nickname, color_index, score, streak, connected
+- `answers` — room_code, round_index, player_id, guess, correct, tier_answered, points
+
+**Timer authority model:** no dedicated server exists, so the *host's browser* drives tier/round
+advancement (writes `tier_index`/`tier_deadline` when its local timer or "everyone answered"
+condition fires); every client renders its own countdown from the synced deadline. Known v1
+tradeoff: if the host closes their tab mid-game, the game pauses until they return. A v2 could
+move this to a Supabase Edge Function on a schedule to remove that dependency.
 
 Future direction (once clue-style rotation ships) — add a `style` field per clue and grow each
 movie's `summaries` array toward 20-40 variants, e.g. `{ "tier": "hard", "style": "reddit-post", "text": "..." }`.
@@ -72,16 +105,13 @@ Future metadata fields still to add: `year`, `genres`, `language`, `category`, `
 
 ## Immediate priorities (in order)
 
-### 1. Gameplay loop rework
-- [ ] Replace manual "Next Clue" button with the timed progressive reveal (clue 1 → 20s → clue 2
-      → 15s → clue 3 → 10s → reveal)
-- [ ] Wire up 100/60/30 point scoring tied to which tier the player answered on (currently only a
-      win streak counter exists)
+### 1. Connect the live Supabase project (see "Action needed" above)
+Everything is built and tested with mock data; it just needs real credentials to go live.
 
-### 2. Multiplayer (post-MVP)
-- [ ] Needs a real backend/socket layer (out of scope for the current static-JSON app) — likely
-      Firebase, Supabase, or a small Node/WS service for room codes + synced timers + live leaderboard
-- [ ] Design room-code join flow, host controls, simultaneous-answer capture
+### 2. Multiplayer v1.1 polish (known gaps, intentionally deferred)
+- [ ] Reconnect-with-same-identity after a real disconnect (currently: refresh = new player row)
+- [ ] Host controls beyond Start Game (kick player, force-skip, pause)
+- [ ] Move tier/round advancement off the host's browser onto a scheduled Edge Function
 
 ### 3. Metadata + clue-style rotation
 - [ ] Add year/genre/language/category/cast/director fields per movie
@@ -100,6 +130,5 @@ Future metadata fields still to add: `year`, `genres`, `language`, `category`, `
 ## Open questions to resolve with the user before building further
 1. Root `movies.json` (120 entries) vs `src/data/movies.json` (1000 entries) — which is
    canonical, or should they be merged?
-2. Multiplayer backend preference (Firebase/Supabase/custom Node+WebSocket/other) — affects how
-   soon infra work needs to start vs. continuing solo on single-player content/schema.
-3. Timed reveal + scoring — build now, or keep growing content/metadata first?
+2. Once Supabase is connected: comfortable with the host-authoritative timer tradeoff for now, or
+   worth the extra infra to make round advancement server-driven from day one?
