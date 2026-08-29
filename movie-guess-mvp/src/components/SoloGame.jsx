@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import moviesData from "../data/movies.json";
 import html2canvas from "html2canvas";
 import ClueCard from "./ClueCard";
+import MovieFilters from "./MovieFilters";
+import { filterMovies, shuffle } from "../lib/movieFilters";
 
 export default function SoloGame({ onBack }) {
-  // Shuffle movies ONCE per session
-  const [movieQueue] = useState(() =>
-    [...moviesData].sort(() => Math.random() - 0.5)
+  // Which origin/era tags are active. Empty array = no filter on that dimension.
+  const [originFilter, setOriginFilter] = useState([]);
+  const [eraFilter, setEraFilter] = useState([]);
+
+  const filteredPool = useMemo(
+    () => filterMovies(moviesData, originFilter, eraFilter),
+    [originFilter, eraFilter]
   );
+
+  // Shuffled queue, reshuffled whenever the active filters change.
+  const [movieQueue, setMovieQueue] = useState(() => shuffle(moviesData));
 
   // Current index in queue
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -34,6 +43,36 @@ export default function SoloGame({ onBack }) {
 
   // Result message
   const [result, setResult] = useState("");
+
+  // Reshuffle the queue and reset the round whenever the active filters change.
+  // ("Adjusting state when a prop/derived value changes" — done during render, not an
+  // effect, so it doesn't cause an extra render pass. See react.dev/learn/you-might-not-need-an-effect.)
+  const filterKey = `${originFilter.join(",")}|${eraFilter.join(",")}`;
+  const [appliedFilterKey, setAppliedFilterKey] = useState(filterKey);
+  if (filterKey !== appliedFilterKey) {
+    setAppliedFilterKey(filterKey);
+    setMovieQueue(shuffle(filteredPool));
+    setCurrentIndex(0);
+    setGuess("");
+    setSuggestions([]);
+    setTierIndex(0);
+    setRoundOver(false);
+    setRevealed(false);
+    setWinningStreak(0);
+    setResult("");
+  }
+
+  function toggleOrigin(value) {
+    setOriginFilter((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  }
+
+  function toggleEra(value) {
+    setEraFilter((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  }
 
   // Typing handler
   function handleInputChange(e) {
@@ -169,7 +208,9 @@ export default function SoloGame({ onBack }) {
     }, "image/png");
   }
 
-  const isLastTier = tierIndex === currentMovie.summaries.length - 1;
+  const isLastTier = currentMovie
+    ? tierIndex === currentMovie.summaries.length - 1
+    : false;
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
@@ -193,6 +234,20 @@ export default function SoloGame({ onBack }) {
           Guess the Movie
         </h1>
 
+        <MovieFilters
+          origins={originFilter}
+          eras={eraFilter}
+          onToggleOrigin={toggleOrigin}
+          onToggleEra={toggleEra}
+          matchCount={filteredPool.length}
+        />
+
+        {!currentMovie ? (
+          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+            No movies match these filters — try a different combination.
+          </div>
+        ) : (
+          <>
         <ClueCard summaries={currentMovie.summaries} tierIndex={tierIndex} />
 
         {/* Input */}
@@ -299,6 +354,8 @@ export default function SoloGame({ onBack }) {
               Next →
             </button>
           </div>
+        )}
+          </>
         )}
       </div>
 

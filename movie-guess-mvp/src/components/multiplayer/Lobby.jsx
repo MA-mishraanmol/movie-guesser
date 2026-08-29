@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { colorForIndex } from "../../lib/roomCode";
 import { startGame } from "../../lib/roomActions";
+import MovieFilters from "../MovieFilters";
+import { filterMovies } from "../../lib/movieFilters";
+import moviesData from "../../data/movies.json";
 
 export default function Lobby({ room, players, playerId, onLeave }) {
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState("");
+  const [originFilter, setOriginFilter] = useState([]);
+  const [eraFilter, setEraFilter] = useState([]);
   const isHost = room.host_player_id === playerId;
+
+  const matchCount = useMemo(
+    () => filterMovies(moviesData, originFilter, eraFilter).length,
+    [originFilter, eraFilter]
+  );
+
+  function toggleOrigin(value) {
+    setOriginFilter((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  }
+
+  function toggleEra(value) {
+    setEraFilter((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  }
 
   async function handleStart() {
     setStarting(true);
     setError("");
     try {
-      await startGame(room.code);
+      await startGame(room.code, originFilter, eraFilter);
     } catch (err) {
       setError(err.message || "Couldn't start the game. Try again.");
       setStarting(false);
@@ -68,6 +90,16 @@ export default function Lobby({ room, players, playerId, onLeave }) {
           })}
         </div>
 
+        {isHost && (
+          <MovieFilters
+            origins={originFilter}
+            eras={eraFilter}
+            onToggleOrigin={toggleOrigin}
+            onToggleEra={toggleEra}
+            matchCount={matchCount}
+          />
+        )}
+
         {error && (
           <p className="mt-4 text-sm text-rose-600 bg-rose-50 border border-rose-200 rounded-lg px-3 py-2">
             {error}
@@ -77,7 +109,7 @@ export default function Lobby({ room, players, playerId, onLeave }) {
         {isHost ? (
           <button
             onClick={handleStart}
-            disabled={starting || players.length < 1}
+            disabled={starting || players.length < 1 || matchCount === 0}
             className="mt-6 w-full rounded-lg py-4 text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-40 disabled:cursor-not-allowed"
           >
             {starting ? "Starting…" : "Start Game"}

@@ -2,6 +2,7 @@ import { supabase } from "./supabaseClient";
 import { generateRoomCode, normalizeRoomCode } from "./roomCode";
 import moviesData from "../data/movies.json";
 import { TIER_DURATIONS_SEC, TIER_POINTS, ROUNDS_PER_GAME } from "./gameConfig";
+import { filterMovies } from "./movieFilters";
 
 function tierDeadline(tierIndex) {
   return new Date(Date.now() + TIER_DURATIONS_SEC[tierIndex] * 1000).toISOString();
@@ -67,8 +68,14 @@ export async function joinRoom(rawCode, nickname) {
   return { roomCode: code, playerId: player.id };
 }
 
-export async function startGame(roomCode) {
-  const shuffled = [...moviesData]
+// origins/eras: arrays of selected filter values ("indian"/"foreign", "pre2000"/"post2000").
+// An empty array means no filter on that dimension. Falls back to the full catalog if the
+// chosen combination happens to match nothing.
+export async function startGame(roomCode, origins = [], eras = []) {
+  const pool = filterMovies(moviesData, origins, eras);
+  const source = pool.length > 0 ? pool : moviesData;
+
+  const shuffled = [...source]
     .sort(() => Math.random() - 0.5)
     .slice(0, ROUNDS_PER_GAME)
     .map((m) => m.id);
