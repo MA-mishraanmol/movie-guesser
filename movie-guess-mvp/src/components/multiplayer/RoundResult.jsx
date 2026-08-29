@@ -39,20 +39,20 @@ export default function RoundResult({ room, players, answers, playerId }) {
   }, [isHost, room.round_index]);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
-      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-4 sm:p-8">
-        <p className="text-xs font-medium uppercase tracking-wide text-slate-400 text-center">
+    <div className="min-h-screen flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
+      <div className="w-full max-w-xl animate-fade-up rounded-[2rem] bg-white/[0.04] backdrop-blur-2xl border border-white/10 shadow-[0_20px_70px_-20px_rgba(99,102,241,0.4)] p-4 sm:p-8">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 text-center">
           Round {room.round_index + 1} of {room.movie_queue.length}
         </p>
-        <p className="mt-1 text-center text-2xl font-bold text-slate-900">
+        <p className="mt-1 text-center font-display text-2xl font-bold text-white">
           {movie.answer}
         </p>
 
         <div
-          className={`mt-4 rounded-lg border px-4 py-3 text-center text-sm font-medium ${
+          className={`mt-4 rounded-2xl border px-4 py-3 text-center text-sm font-medium ${
             myAnswer?.correct
-              ? "bg-emerald-50 border-emerald-200 text-emerald-700"
-              : "bg-rose-50 border-rose-200 text-rose-700"
+              ? "bg-emerald-500/10 border-emerald-400/20 text-emerald-300"
+              : "bg-rose-500/10 border-rose-400/20 text-rose-300"
           }`}
         >
           {myAnswer?.correct
@@ -63,7 +63,7 @@ export default function RoundResult({ room, players, answers, playerId }) {
         </div>
 
         <div className="mt-6">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-400 mb-2">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500 mb-2">
             Standings
           </p>
           <RankedList players={players} playerId={playerId} />
@@ -73,7 +73,7 @@ export default function RoundResult({ room, players, answers, playerId }) {
           <button
             onClick={handleContinue}
             disabled={advancing}
-            className="mt-6 w-full rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-40"
+            className="mt-6 w-full rounded-2xl py-3 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-[0_0_20px_-5px_rgba(139,92,246,0.7)] hover:shadow-[0_0_28px_-5px_rgba(139,92,246,0.9)] transition-all duration-300 disabled:opacity-30 disabled:shadow-none"
           >
             {advancing
               ? "Loading…"

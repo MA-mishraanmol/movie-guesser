@@ -15,22 +15,24 @@ export function RankedList({ players, playerId }) {
         return (
           <div
             key={player.id}
-            className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
-              isYou ? "border-indigo-200 bg-indigo-50" : "border-slate-200"
+            className={`flex items-center gap-3 rounded-2xl border px-4 py-3 ${
+              isYou
+                ? "border-indigo-400/30 bg-indigo-500/10"
+                : "border-white/10 bg-white/[0.02]"
             }`}
           >
-            <span className="text-sm font-semibold text-slate-400 w-5 shrink-0">
+            <span className="text-sm font-semibold text-slate-500 w-5 shrink-0">
               {i + 1}
             </span>
             <span className={`h-2.5 w-2.5 rounded-full shrink-0 ${color.bg}`} />
-            <span className="text-sm font-medium text-slate-800 truncate">
+            <span className="text-sm font-medium text-slate-200 truncate">
               {player.nickname}
-              {isYou && <span className="text-slate-400"> (you)</span>}
+              {isYou && <span className="text-slate-500"> (you)</span>}
             </span>
             {player.streak >= 2 && (
-              <span className="text-xs text-amber-600 shrink-0">🔥{player.streak}</span>
+              <span className="text-xs text-amber-300 shrink-0">🔥{player.streak}</span>
             )}
-            <span className="ml-auto text-sm font-semibold text-slate-900 shrink-0 tabular-nums">
+            <span className="ml-auto text-sm font-semibold text-white shrink-0 tabular-nums">
               {player.score}
             </span>
           </div>
@@ -58,9 +60,9 @@ export default function Leaderboard({ room, players, playerId, onLeave }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
-      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-4 sm:p-8">
-        <h1 className="text-lg sm:text-xl font-semibold text-slate-900 tracking-tight text-center">
+    <div className="min-h-screen flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
+      <div className="w-full max-w-xl animate-fade-up rounded-[2rem] bg-white/[0.04] backdrop-blur-2xl border border-white/10 shadow-[0_20px_70px_-20px_rgba(99,102,241,0.4)] p-4 sm:p-8">
+        <h1 className="font-display text-lg sm:text-xl font-semibold text-white tracking-tight text-center">
           🎬 Game Over
         </h1>
 
@@ -68,8 +70,10 @@ export default function Leaderboard({ room, players, playerId, onLeave }) {
           <div className="mt-6 flex items-end justify-center gap-3">
             {podium.map((player, i) => (
               <div key={player.id} className="flex flex-col items-center gap-1">
-                <span className="text-2xl">{MEDALS[i]}</span>
-                <span className="text-sm font-medium text-slate-800 max-w-[6rem] truncate">
+                <span className="text-2xl drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]">
+                  {MEDALS[i]}
+                </span>
+                <span className="text-sm font-medium text-slate-200 max-w-[6rem] truncate">
                   {player.nickname}
                 </span>
                 <span className="text-xs font-semibold text-slate-500">
@@ -87,7 +91,7 @@ export default function Leaderboard({ room, players, playerId, onLeave }) {
         <div className="mt-6 flex gap-2 sm:gap-3">
           <button
             onClick={onLeave}
-            className="flex-1 rounded-lg py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition"
+            className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-medium text-slate-200 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
           >
             Back to Menu
           </button>
@@ -95,7 +99,7 @@ export default function Leaderboard({ room, players, playerId, onLeave }) {
             <button
               onClick={handlePlayAgain}
               disabled={restarting}
-              className="flex-1 rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-40"
+              className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-[0_0_20px_-5px_rgba(139,92,246,0.7)] hover:shadow-[0_0_28px_-5px_rgba(139,92,246,0.9)] transition-all duration-300 disabled:opacity-30 disabled:shadow-none"
             >
               {restarting ? "Starting…" : "Play Again"}
             </button>

@@ -213,24 +213,24 @@ export default function SoloGame({ onBack }) {
     : false;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
+    <div className="min-h-screen flex items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
       {/* Main Game Card */}
-      <div className="w-full max-w-xl rounded-2xl bg-white border border-slate-200 shadow-sm p-4 sm:p-8">
+      <div className="w-full max-w-xl animate-fade-up rounded-[2rem] bg-white/[0.04] backdrop-blur-2xl border border-white/10 shadow-[0_20px_70px_-20px_rgba(99,102,241,0.4)] p-4 sm:p-8">
         {/* Header */}
         <div className="flex items-center justify-between gap-2">
           <button
             onClick={onBack}
-            className="text-sm text-slate-400 hover:text-slate-600 transition"
+            className="text-sm text-slate-500 hover:text-slate-200 transition-colors"
           >
             ← Menu
           </button>
 
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-sm font-medium text-indigo-700 shrink-0">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-amber-300 shrink-0">
             🔥 {winningStreak}
           </div>
         </div>
 
-        <h1 className="mt-3 text-lg sm:text-xl font-semibold text-slate-900 tracking-tight">
+        <h1 className="mt-3 font-display text-lg sm:text-xl font-semibold text-white tracking-tight">
           Guess the Movie
         </h1>
 
@@ -243,143 +243,144 @@ export default function SoloGame({ onBack }) {
         />
 
         {!currentMovie ? (
-          <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-500">
+          <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-6 text-center text-sm text-slate-400">
             No movies match these filters — try a different combination.
           </div>
         ) : (
           <>
-        <ClueCard summaries={currentMovie.summaries} tierIndex={tierIndex} />
+            <ClueCard summaries={currentMovie.summaries} tierIndex={tierIndex} />
 
-        {/* Input */}
-        <div className="mt-4 sm:mt-5 relative">
-          <input
-            value={guess}
-            onChange={handleInputChange}
-            disabled={roundOver}
-            placeholder="Type your guess..."
-            inputMode="text"
-            autoCapitalize="words"
-            autoCorrect="off"
-            autoComplete="off"
-            className={`w-full px-4 py-3 rounded-lg border text-base text-slate-900 font-medium outline-none transition
-              ${
-                roundOver
-                  ? "bg-slate-100 border-slate-200 text-slate-400"
-                  : "bg-white border-slate-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-              }
-            `}
-          />
+            {/* Input */}
+            <div className="mt-4 sm:mt-5 relative">
+              <input
+                value={guess}
+                onChange={handleInputChange}
+                disabled={roundOver}
+                placeholder="Type your guess..."
+                inputMode="text"
+                autoCapitalize="words"
+                autoCorrect="off"
+                autoComplete="off"
+                className={`w-full px-4 py-3.5 rounded-2xl border text-base font-medium outline-none transition-all duration-300
+                  ${
+                    roundOver
+                      ? "bg-white/[0.02] border-white/5 text-slate-500"
+                      : "bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-indigo-400/60 focus:ring-2 focus:ring-indigo-400/20"
+                  }
+                `}
+              />
 
-          {!roundOver && suggestions.length > 0 && (
-            <div className="absolute mt-2 w-full max-h-60 overflow-y-auto rounded-lg bg-white border border-slate-200 shadow-lg overflow-hidden z-20">
-              {suggestions.map((movie) => (
-                <div
-                  key={movie.id}
-                  onClick={() => handleSuggestionClick(movie.answer)}
-                  className="px-4 py-3 sm:py-2.5 cursor-pointer text-sm text-slate-700 hover:bg-indigo-50 active:bg-indigo-100"
-                >
-                  {movie.answer}
+              {!roundOver && suggestions.length > 0 && (
+                <div className="absolute mt-2 w-full max-h-60 overflow-y-auto rounded-2xl bg-[#0b0d15] border border-white/10 shadow-2xl overflow-hidden z-20">
+                  {suggestions.map((movie) => (
+                    <div
+                      key={movie.id}
+                      onClick={() => handleSuggestionClick(movie.answer)}
+                      className="px-4 py-3 sm:py-2.5 cursor-pointer text-sm text-slate-300 hover:bg-white/5 active:bg-white/10"
+                    >
+                      {movie.answer}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Buttons: Next Clue LEFT, Submit RIGHT */}
-        <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
-          <button
-            onClick={handleNextClue}
-            disabled={roundOver || isLastTier}
-            className="flex-1 rounded-lg py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Next Clue
-          </button>
+            {/* Buttons: Next Clue LEFT, Submit RIGHT */}
+            <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
+              <button
+                onClick={handleNextClue}
+                disabled={roundOver || isLastTier}
+                className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-medium text-slate-200 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5"
+              >
+                Next Clue
+              </button>
 
-          <button
-            onClick={handleSubmit}
-            disabled={roundOver}
-            className="flex-1 rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            Submit
-          </button>
-        </div>
+              <button
+                onClick={handleSubmit}
+                disabled={roundOver}
+                className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-[0_0_20px_-5px_rgba(139,92,246,0.7)] hover:shadow-[0_0_28px_-5px_rgba(139,92,246,0.9)] transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none"
+              >
+                Submit
+              </button>
+            </div>
 
-        {/* Reveal button */}
-        {isLastTier && !roundOver && (
-          <button
-            onClick={handleReveal}
-            className="mt-3 w-full rounded-lg py-3 text-sm sm:text-base font-medium text-rose-600 bg-rose-50 border border-rose-200 hover:bg-rose-100 active:bg-rose-200 transition"
-          >
-            Reveal Answer
-          </button>
-        )}
+            {/* Reveal button */}
+            {isLastTier && !roundOver && (
+              <button
+                onClick={handleReveal}
+                className="mt-3 w-full rounded-2xl py-3 text-sm sm:text-base font-medium text-rose-300 bg-rose-500/10 border border-rose-400/20 hover:bg-rose-500/15 transition-all duration-300"
+              >
+                Reveal Answer
+              </button>
+            )}
 
-        {/* Result */}
-        {result && (
-          <div
-            className={`mt-4 sm:mt-5 rounded-lg border px-4 py-3 text-center text-sm sm:text-base font-medium ${
-              revealed
-                ? "bg-rose-50 border-rose-200 text-rose-700"
-                : "bg-emerald-50 border-emerald-200 text-emerald-700"
-            }`}
-          >
-            {result}
-          </div>
-        )}
+            {/* Result */}
+            {result && (
+              <div
+                className={`mt-4 sm:mt-5 rounded-2xl border px-4 py-3 text-center text-sm sm:text-base font-medium ${
+                  revealed
+                    ? "bg-rose-500/10 border-rose-400/20 text-rose-300"
+                    : "bg-emerald-500/10 border-emerald-400/20 text-emerald-300"
+                }`}
+              >
+                {result}
+              </div>
+            )}
 
-        {/* Answer */}
-        {revealed && (
-          <p className="mt-3 text-center text-sm sm:text-base text-slate-600 break-words">
-            Answer:{" "}
-            <span className="font-semibold text-slate-900">
-              {currentMovie.answer}
-            </span>
-          </p>
-        )}
+            {/* Answer */}
+            {revealed && (
+              <p className="mt-3 text-center text-sm sm:text-base text-slate-400 break-words">
+                Answer:{" "}
+                <span className="font-semibold text-white">
+                  {currentMovie.answer}
+                </span>
+              </p>
+            )}
 
-        {/* Share + Next */}
-        {roundOver && (
-          <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
-            <button
-              onClick={handleShareImage}
-              className="flex-1 rounded-lg py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100 transition"
-            >
-              Share Result
-            </button>
+            {/* Share + Next */}
+            {roundOver && (
+              <div className="mt-4 sm:mt-5 flex gap-2 sm:gap-3">
+                <button
+                  onClick={handleShareImage}
+                  className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-medium text-slate-200 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
+                >
+                  Share Result
+                </button>
 
-            <button
-              onClick={handleNext}
-              className="flex-1 rounded-lg py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 transition"
-            >
-              Next →
-            </button>
-          </div>
-        )}
+                <button
+                  onClick={handleNext}
+                  className="flex-1 rounded-2xl py-3 text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-indigo-500 to-fuchsia-500 shadow-[0_0_20px_-5px_rgba(139,92,246,0.7)] hover:shadow-[0_0_28px_-5px_rgba(139,92,246,0.9)] transition-all duration-300"
+                >
+                  Next →
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
 
-      {/* Share Card Uses Last Successful Streak */}
+      {/* Share Card — Uses Last Successful Streak. Solid gradient (no backdrop-blur), so
+          html2canvas renders it faithfully when exported as a shareable PNG. */}
       <div
         id="share-card"
-        className="fixed -left-[9999px] top-0 w-[500px] p-10 rounded-2xl
-             bg-white border-2 border-indigo-600 shadow-2xl"
+        className="fixed -left-[9999px] top-0 w-[500px] p-10 rounded-[2rem]
+             bg-gradient-to-br from-[#0b0d18] to-[#1a1030] border-2 border-indigo-500/40"
       >
         {/* Title */}
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-          Guess the Movie
+        <h1 className="font-display text-3xl font-bold tracking-tight text-white">
+          🎬 Guess the Movie
         </h1>
 
         {/* Streak Only */}
-        <p className="mt-6 text-2xl font-semibold text-slate-700">
+        <p className="mt-6 text-2xl font-semibold text-slate-300">
           Winning Streak:{" "}
-          <span className="text-indigo-600">
+          <span className="text-indigo-300">
             {roundOver ? lastSuccessfulStreak : winningStreak}
           </span>
         </p>
 
         {/* Footer */}
-        <p className="mt-12 text-base text-slate-400">
+        <p className="mt-12 text-base text-slate-500">
           Play now → Guess The Movie
         </p>
       </div>
